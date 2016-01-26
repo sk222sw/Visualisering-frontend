@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jasmine",
     "start": "webpack-dev-server"
   },
   "repository": {
@@ -40,5 +40,10 @@
     "react-dom": "^0.14.6",
     "webpack": "^1.12.12",
     "webpack-dev-server": "^1.14.1"
+  },
+  "devDependencies": {
+    "jasmine-es6": "^0.1.1",
+    "jsdom": "^7.2.2",
+    "react-addons-test-utils": "^0.14.6"
   }
 }
