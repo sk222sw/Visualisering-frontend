@@ -67,8 +67,5 @@
     },
     "plugins": [
         "react"
-    ],
-    "globals": {
-        "google": true
-    }
+    ]
 }

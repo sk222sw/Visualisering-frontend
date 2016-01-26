@@ -1,5 +1,7 @@
 # Visualisering
 
+[![Build Status](https://travis-ci.org/Visualisering/Visualisering.svg?branch=master)](https://travis-ci.org/Visualisering/Visualisering)
+
 ## Quick-start guide: 
 
 * Run `npm install` to install all dependencies
