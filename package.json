@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jasmine",
+    "eslint": "eslint ./src",
     "start": "webpack-dev-server"
   },
   "repository": {
