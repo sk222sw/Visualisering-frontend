@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine",
+    "test": "mocha './spec/**/*-spec.js' --compilers js:babel-core/register",
     "eslint": "eslint ./src",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -43,8 +44,9 @@
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
-    "jasmine-es6": "^0.1.1",
-    "jsdom": "^7.2.2",
+    "expect": "^1.13.4",
+    "expect-jsx": "^2.2.2",
+    "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.6"
   }
 }
