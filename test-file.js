@@ -5,17 +5,17 @@ import expectJSX from 'expect-jsx';
 
 expect.extend(expectJSX);
 
-import HelloWorld from '../../src/components/hello-world';
+import ScreamingHelloWorld from '../../src/components/screaming-hello-world.js';
 
-describe('HelloWorld', () => {
+describe('ScreamingHelloWorld', () => {
 
-    it('should show correct greeting', () => {
+    it('WRITE DESCRIPTION HERE', () => {
         const renderer = TestUtils.createRenderer();
 
-        renderer.render(<HelloWorld name="Krabba" />);
+        renderer.render(<ScreamingHelloWorld ADD PROPS HERE />);
 
         const actual = renderer.getRenderOutput();
-        const expected = <h1>Hej Krabba!</h1>;
+        const expected = <p>This is what you want</p>;
 
         expect(actual).toIncludeJSX(expected);
     });
