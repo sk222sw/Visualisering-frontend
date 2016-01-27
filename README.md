@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/Visualisering/Visualisering.png?label=ready&title=Ready)](https://waffle.io/Visualisering/Visualisering)
 # Visualisering
 
 [![Build Status](https://travis-ci.org/Visualisering/Visualisering.svg?branch=master)](https://travis-ci.org/Visualisering/Visualisering)
