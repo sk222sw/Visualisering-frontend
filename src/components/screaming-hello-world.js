@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
-export default class HelloWorld extends Component {
+export default class ScreamingHelloWorld extends Component {
     render() {
         return (
             <div>
-                <h1>Hej {this.props.name}!</h1>
+                <h1>Hej {this.props.name.toUpperCase()}!</h1>
             </div>
         );
     }
