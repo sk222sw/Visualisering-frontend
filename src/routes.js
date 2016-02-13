@@ -2,11 +2,11 @@ import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
 import Wrapper from './components/wrapper';
-import Sphere from './components/sphere';
+import SpherePage from './pages/sphere-page';
 
 export default (
     <Route path="/" component={Wrapper}>
-        <IndexRoute component={Sphere} />
-        <Route path="sphere" component={Sphere} />
+        <IndexRoute component={SpherePage} />
+        <Route path="sphere" component={SpherePage} />
     </Route>
 );
