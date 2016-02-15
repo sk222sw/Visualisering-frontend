@@ -30,14 +30,17 @@ export default class Sphere extends Component {
     }
 
     componentDidMount() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
         const container = document.getElementById('sphere-container');
-        const camera = new THREE.PerspectiveCamera(75, 1, 1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
         const scene = new THREE.Scene();
         const renderer = new THREE.WebGLRenderer();
 
+
         camera.position.z = 1000;
         renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(1200, 1200);
+        renderer.setSize(width, height);
 
         container.appendChild(renderer.domElement);
 
@@ -46,7 +49,7 @@ export default class Sphere extends Component {
             color: 0xffffff
         });
 
-        for (var i = 0; i < 1000; i += 1) {
+        for (let i = 0; i < 1000; i += 1) {
             let particle = new THREE.Sprite(material);
 
             particle.position.x = Math.random() * 2 - 1;

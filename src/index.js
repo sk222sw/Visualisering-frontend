@@ -1,19 +1,15 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import {Router, hashHistory} from 'react-router';
+import {Provider} from 'react-redux';
+import store from './store';
+import routes from './routes';
 
-import Sphere from './components/sphere';
 
-const data = [
-    {lat: 56.878655, lng: 14.819965, time: 300},
-    {lat: 54.242091, lng: 14.727779, time: 1020},
-    {lat: 39.399872, lng: -8.224454, time: 824},
-    {lat: 0, lng: 180, time: 404},
-    {lat: 0, lng: 90, time: 5083},
-    {lat: 0, lng: -90, time: 1204},
-    {lat: 0, lng: 0, time: 10}
-];
-
+// By wrapping the whole app in the react-redux Provider we get... magic!
 ReactDom.render(
-    <Sphere data={data} />,
+    <Provider store={store}>
+      <Router history={hashHistory} routes={routes} />
+    </Provider>,
     document.getElementById('root')
 );
