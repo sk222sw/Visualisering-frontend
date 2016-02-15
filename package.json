@@ -39,6 +39,7 @@
     "eslint-config-defaults": "^8.0.2",
     "eslint-loader": "^1.2.0",
     "eslint-plugin-react": "^3.16.1",
+    "http-server": "^0.8.5",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "three": "^0.73.2",
