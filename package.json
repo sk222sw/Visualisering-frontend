@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha './spec/**/*-spec.js' --compilers js:babel-core/register",
-    "test:watch": "mocha './spec/**/*-spec.js' --compilers js:babel-core/register -w",
+    "test": "mocha ./spec/**/*-spec.js --compilers js:babel-core/register",
+    "test:watch": "mocha ./spec/**/*-spec.js --compilers js:babel-core/register -w",
     "eslint": "eslint ./src",
     "start": "webpack-dev-server --hot --inline --progress --colors -d",
     "build": "webpack"
