@@ -20,5 +20,8 @@ export default {
             'user': 'Lord Howell',
             'commit': 'if (morning) {goto Work}'
         }]
+    },
+    codeCrawl: {
+        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi officia adipisci numquam eos sit. Autem vitae accusamus corporis laudantium ipsa ad impedit, quis possimus omnis rem excepturi illo sunt reprehenderit!'
     }
 };
