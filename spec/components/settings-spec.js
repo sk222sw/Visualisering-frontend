@@ -14,23 +14,14 @@ describe('Settings component', () => {
 
   afterEach(() => expect(ReactWarnings.propWarnings().length).toBe(0));
 
-  // Tests that the console logs a warning if the component is created
-  // with incorrect props. Unsure if this is really needed
-  it('should console error with invalid props', () => {
+  it('should render an input field', () => {
     const renderer = TestUtils.createRenderer();
 
-    renderer.render(<Settings settings={"not correct"} />);
-    renderer.getRenderOutput();
+    renderer.render(<Settings settings={{time: 0}} />);
 
-    expect(ReactWarnings.propWarnings().length).toBe(1);
-  });
+    const actual = renderer.getRenderOutput();
+    const expected = <input type="text" />;
 
-  it('should not console error with invalid props', () => {
-    const renderer = TestUtils.createRenderer();
-
-    renderer.render(<Settings settings={{time: 2}} />);
-    renderer.getRenderOutput();
-
-    expect(ReactWarnings.propWarnings().length).toBe(0);
+    expect(actual).toIncludeJSX(expected);
   });
 });
