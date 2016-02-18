@@ -1,14 +1,21 @@
 import React, {Component} from 'react';
+import {hashHistory} from 'react-router';
 
 export default class CodeCrawl extends Component {
-    render() {
-        return (
-            <div>
-                <h1>{this.props.text}</h1>
-            </div>
-        );
-    }
+  componentDidMount() {
+    console.log(hashHistory);
+  }
+  clickHandler() {
+    hashHistory.push('sphere');
+  }
+  render() {
+    return (
+      <div onClick={this.clickHandler.bind(this)}>
+        <h1>{this.props.text}</h1>
+      </div>
+    );
+  }
 }
 CodeCrawl.propTypes = {
-    text: React.PropTypes.string
+  text: React.PropTypes.string
 };

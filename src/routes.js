@@ -6,9 +6,9 @@ import CodeCrawlPage from './pages/code-crawl-page';
 import SpherePage from './pages/sphere-page';
 
 export default (
-    <Route path="/" component={Wrapper}>
-        <IndexRoute component={SpherePage} />
-        <Route path="crawl" component={CodeCrawlPage} />
-        <Route path="sphere" component={SpherePage} />
-    </Route>
+  <Route path="/" component={Wrapper}>
+    <IndexRoute component={SpherePage} />
+    <Route path="crawl" component={CodeCrawlPage} />
+    <Route path="sphere" component={SpherePage} />
+  </Route>
 );

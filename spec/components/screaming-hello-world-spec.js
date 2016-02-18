@@ -9,14 +9,14 @@ import ScreamingHelloWorld from '../../src/components/screaming-hello-world.js';
 
 describe('ScreamingHelloWorld', () => {
 
-    it('this one screams', () => {
-        const renderer = TestUtils.createRenderer();
+  it('this one screams', () => {
+    const renderer = TestUtils.createRenderer();
 
-        renderer.render(<ScreamingHelloWorld name="mattias" />);
+    renderer.render(<ScreamingHelloWorld name="mattias" />);
 
-        const actual = renderer.getRenderOutput();
-        const expected = <h1>Hej MATTIAS!</h1>;
+    const actual = renderer.getRenderOutput();
+    const expected = <h1>Hej MATTIAS!</h1>;
 
-        expect(actual).toIncludeJSX(expected);
-    });
+    expect(actual).toIncludeJSX(expected);
+  });
 });
