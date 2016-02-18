@@ -9,5 +9,16 @@ export default {
         {lat: 0, lng: -90, time: 1204},
         {lat: 0, lng: 0, time: 10}
         ]
+    },
+    matrix: {
+        data: [{
+            'id': 1,
+            'user': 'sonny',
+            'commit': 'if (hej) {drink.Coffe()}'
+        }, {
+            'id': 2,
+            'user': 'Lord Howell',
+            'commit': 'if (morning) {goto Work}'
+        }]
     }
 };
