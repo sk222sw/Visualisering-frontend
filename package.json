@@ -7,6 +7,7 @@
     "test": "mocha ./spec/**/*-spec.js --compilers js:babel-core/register",
     "test:watch": "mocha ./spec/**/*-spec.js --compilers js:babel-core/register -w",
     "eslint": "eslint ./src ./spec",
+    "eslint:fix": "eslint ./src ./spec --fix",
     "start": "webpack-dev-server --hot --inline --progress --colors -d",
     "build": "webpack"
   },

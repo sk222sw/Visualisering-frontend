@@ -1,14 +1,14 @@
 export default {
   matrix: {
-      data: [{
-          'id': 1,
-          'user': 'sonny',
-          'commit': 'if (hej) {drink.Coffe()}'
-      }, {
-          'id': 2,
-          'user': 'Lord Howell',
-          'commit': 'if (morning) {goto Work}'
-      }]
+    data: [{
+      'id': 1,
+      'user': 'sonny',
+      'commit': 'if (hej) {drink.Coffe()}'
+    }, {
+      'id': 2,
+      'user': 'Lord Howell',
+      'commit': 'if (morning) {goto Work}'
+    }]
   },
   settings: {
     time: null

@@ -7,13 +7,13 @@ export default class Settings extends Component {
   render() {
     const routes = this.props.routes.filter(r => r.path !== 'settings'); //remove current settings path from array
 
-    console.log(routes);
+    // console.log(routes);
 
     return (
       <div>
-        <select name="component-selector" id="comp-sel">
-          {routes.map(route => <option key={route.path + Math.random()} value={route.path}>{route.path}</option>)}
-        </select>
+        <span>
+          {routes.map(route => <label><input key={route.path + Math.random()} type="checkbox" id={route.path + '_checkbox'} />{route.path}</label>)}
+        </span>
         <label>Sekunder:</label>
         <input type="text"/>
         <button onClick={this.saveSettings.bind(this)}>Starta</button>

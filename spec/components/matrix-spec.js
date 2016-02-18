@@ -9,17 +9,16 @@ expect.extend(expectJSX);
 import Matrix from '../../src/components/matrix';
 
 describe('Matrix', () => {
+  it('should render an h4 with user name', () => {
+    const renderer = TestUtils.createRenderer();
 
-    it('should render an h4 with user name', () => {
-        const renderer = TestUtils.createRenderer();
+    const fakeData = [{id: 1, user: 'Lord Howell', commit: 'Some text'}];
 
-        const fakeData = [{id: 1, user: 'Lord Howell', commit: 'Some text'}];
+    renderer.render(<Matrix data={fakeData} />);
 
-        renderer.render(<Matrix data={fakeData} />);
+    const actual = renderer.getRenderOutput();
+    const expected = <h4>Lord Howell</h4>;
 
-        const actual = renderer.getRenderOutput();
-        const expected = <h4>Lord Howell</h4>;
-
-        expect(actual).toIncludeJSX(expected);
-    });
+    expect(actual).toIncludeJSX(expected);
+  });
 });
