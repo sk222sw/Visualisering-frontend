@@ -1,7 +1,6 @@
-// import C from '../../constants';
 import initialState from '../initial-state';
 
-export default (currentState = initialState.codeCrawl, action) => {
+export default (currentState = initialState.settings, action) => {
   switch(action.type) {
   default: return currentState;
   }

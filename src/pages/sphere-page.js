@@ -15,9 +15,9 @@ const SpherePage = ({data}) => (<Sphere data={data} />);
 
 // This is the magic provided by react-redux, you can pass props to the component like Scotty beams up Kirk!
 const mapStateToProps = appState => {
-    return {
-        data: appState.sphere.data
-    };
+  return {
+    data: appState.sphere.data
+  };
 };
 
 export default connect(mapStateToProps)(SpherePage);
