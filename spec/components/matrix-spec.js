@@ -10,9 +10,9 @@ import Matrix from '../../src/components/matrix';
 
 describe('Matrix', () => {
 
-    it('should render a h4 with user name', () => {
+    it('should render an h4 with user name', () => {
         const renderer = TestUtils.createRenderer();
-        
+
         const fakeData = [{id: 1, user: 'Lord Howell', commit: 'Some text'}];
 
         renderer.render(<Matrix data={fakeData} />);
