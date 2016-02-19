@@ -8,7 +8,6 @@ export default {
       let index = 0;
 
       hashHistory.push(settings.pathsToVisit[index]);
-      index++;
 
       setInterval(() =>{
         index++;
