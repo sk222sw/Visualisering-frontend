@@ -1,23 +1,22 @@
 import React from 'react';
-
 import TestUtils from 'react-addons-test-utils';
 import expect from 'expect';
 import expectJSX from 'expect-jsx';
 
 expect.extend(expectJSX);
 
-import Matrix from '../../src/components/matrix';
+import CodeCrawl from '../../src/components/code-crawl';
 
-describe('Matrix', () => {
-  it('should render an h4 with user name', () => {
+describe('CodeCrawl', () => {
+  it('should render prop test in h1', () => {
     const renderer = TestUtils.createRenderer();
 
-    const fakeData = [{id: 1, user: 'Lord Howell', commit: 'Some text'}];
+    const text = 'This is some sample text';
 
-    renderer.render(<Matrix data={fakeData} />);
+    renderer.render(<CodeCrawl text={text} />);
 
     const actual = renderer.getRenderOutput();
-    const expected = <h4>Lord Howell</h4>;
+    const expected = <h1>{text}</h1>;
 
     expect(actual).toIncludeJSX(expected);
   });
