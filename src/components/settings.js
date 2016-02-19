@@ -1,8 +1,18 @@
 import React, {Component} from 'react';
+import filter from 'lodash/filter';
 
 export default class Settings extends Component {
-  saveSettings() {
+  saveSettings(e) {
+    e.preventDefault();
 
+    const pathsToVisit = filter(this.refs, r => r.type === 'checkbox' && r.checked).map(r => r.name);
+    const time = this.refs.seconds.value;
+    const settings = {
+      pathsToVisit,
+      time
+    };
+
+    this.props.saveAndStart(settings);
   }
   render() {
     const routes = this.props.routes.filter(r => r.path !== 'settings'); //remove current settings path from array
@@ -10,14 +20,17 @@ export default class Settings extends Component {
     // console.log(routes);
 
     return (
-      <div>
-        <span>
-          {routes.map(route => <label><input key={route.path + Math.random()} type="checkbox" id={route.path + '_checkbox'} />{route.path}</label>)}
-        </span>
-        <label>Sekunder:</label>
-        <input type="text"/>
-        <button onClick={this.saveSettings.bind(this)}>Starta</button>
-
+      <div className="wrapper-div">
+        <form onSubmit={this.saveSettings.bind(this)} className="centered-div">
+          <h3>Settings</h3>
+          <strong>Select visualizations</strong>
+          <span>
+            {routes.map((route, i) => <label key={route.path + i}><input ref={route.path} name={route.path} type="checkbox" />{route.path}</label>)}
+          </span>
+          <label>Seconds spent on each:</label>
+          <input type="number" ref="seconds" />
+          <input type="submit" value="Start loop" />
+        </form>
       </div>
     );
   }

@@ -14,13 +14,13 @@ describe('Settings component', () => {
 
   afterEach(() => expect(ReactWarnings.propWarnings().length).toBe(0));
 
-  it('should render an input field', () => {
+  it('should render an input field with correct type and ref', () => {
     const renderer = TestUtils.createRenderer();
 
     renderer.render(<Settings settings={{time: 0}} routes={[{path: 'somewhere'}]} />);
 
     const actual = renderer.getRenderOutput();
-    const expected = <input type="text" />;
+    const expected = <input type="number" ref="seconds" />;
 
     expect(actual).toIncludeJSX(expected);
   });
@@ -39,9 +39,9 @@ describe('Settings component', () => {
     const actual = renderer.getRenderOutput();
     const expected = (
       <span>
-        <label><input type="checkbox" id="pathOne_checkbox" />pathOne</label>
-        <label><input type="checkbox" id="pathTwo_checkbox" />pathTwo</label>
-        <label><input type="checkbox" id="pathThree_checkbox" />pathThree</label>
+        <label><input ref="pathOne" name="pathOne" type="checkbox" />pathOne</label>
+        <label><input ref="pathTwo" name="pathTwo" type="checkbox" />pathTwo</label>
+        <label><input ref="pathThree" name="pathThree" type="checkbox" />pathThree</label>
       </span>);
 
     expect(actual).toIncludeJSX(expected);
