@@ -14,6 +14,6 @@ export default combineReducers({
   routing: routeReducer,
   codeCrawl,
   settings,
-  sphere,
-  matrix
+  matrix,
+  sphere
 });

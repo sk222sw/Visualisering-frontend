@@ -8,7 +8,7 @@ import routes from './routes';
 
 // By wrapping the whole app in the react-redux Provider we get... magic!
 ReactDom.render(
-  <Provider id="poop" store={store}>
+  <Provider store={store}>
     <Router history={hashHistory} routes={routes} />
   </Provider>,
   document.getElementById('root')
