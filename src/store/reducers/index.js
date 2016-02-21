@@ -3,6 +3,7 @@ import {routeReducer} from "react-router-redux";
 
 // These are the different reducers for the application
 import codeCrawl from "./code-crawl";
+import earth from "./earth";
 import settings from "./settings";
 import sphere from "./sphere";
 import matrix from "./matrix";
@@ -13,6 +14,7 @@ import matrix from "./matrix";
 export default combineReducers({
   routing: routeReducer,
   codeCrawl,
+  earth,
   settings,
   matrix,
   sphere
