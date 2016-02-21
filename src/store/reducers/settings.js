@@ -1,4 +1,4 @@
-import initialState from '../initial-state';
+import initialState from "../initial-state";
 
 export default (currentState = initialState.settings, action) => {
   switch (action.type) {

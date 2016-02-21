@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Code from './code';
+import Code from "./code";
 
 export default class Commit extends React.Component {
 

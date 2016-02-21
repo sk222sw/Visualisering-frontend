@@ -1,6 +1,6 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import Matrix from '../components/matrix';
+import React from "react";
+import {connect} from "react-redux";
+import Matrix from "../components/matrix";
 
 const MatrixPage = ({data}) => (<Matrix data={data} />);
 

@@ -20,8 +20,8 @@
  *      ];
  */
 
-import React, {Component} from 'react';
-import THREE from 'three';
+import React, {Component} from "react";
+import THREE from "three";
 
 export default class Sphere extends Component {
   constructor() {
@@ -32,7 +32,7 @@ export default class Sphere extends Component {
   componentDidMount() {
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const container = document.getElementById('sphere-container');
+    const container = document.getElementById("sphere-container");
     const camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
     const scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer();

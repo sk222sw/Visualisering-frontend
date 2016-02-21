@@ -1,6 +1,6 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import Sphere from '../components/sphere';
+import React from "react";
+import {connect} from "react-redux";
+import Sphere from "../components/sphere";
 
 // Since a few versions back you can create React components that don't
 // have any state or don't use any of the lifecycle methods (like componentDidMount)

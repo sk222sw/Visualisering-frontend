@@ -1,7 +1,7 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import actions from '../actions';
-import Settings from '../components/settings';
+import React from "react";
+import {connect} from "react-redux";
+import actions from "../actions";
+import Settings from "../components/settings";
 
 const SettingsPage = ({settings, routes, saveAndStart}) => (<Settings saveAndStart={saveAndStart} settings={settings} routes={routes[0].childRoutes} />);
 

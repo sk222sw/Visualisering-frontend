@@ -1,11 +1,11 @@
-import React from 'react';
-import {Route, IndexRoute} from 'react-router';
+import React from "react";
+import {Route, IndexRoute} from "react-router";
 
-import Wrapper from './components/wrapper';
-import CodeCrawlPage from './pages/code-crawl-page';
-import SettingsPage from './pages/settings-page';
-import SpherePage from './pages/sphere-page';
-import MatrixPage from './pages/matrix-page';
+import Wrapper from "./components/wrapper";
+import CodeCrawlPage from "./pages/code-crawl-page";
+import SettingsPage from "./pages/settings-page";
+import SpherePage from "./pages/sphere-page";
+import MatrixPage from "./pages/matrix-page";
 
 export default (
   <Route path="/" component={Wrapper}>

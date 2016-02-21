@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {hashHistory} from 'react-router';
+import React, {Component} from "react";
+import {hashHistory} from "react-router";
 
 export default class CodeCrawl extends Component {
   componentDidMount() {
     console.log(hashHistory);
   }
   clickHandler() {
-    hashHistory.push('sphere');
+    hashHistory.push("sphere");
   }
   render() {
     return (

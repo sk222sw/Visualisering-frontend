@@ -1,14 +1,14 @@
-import React from 'react';
-import TestUtils from 'react-addons-test-utils';
-import expect from 'expect';
-import expectJSX from 'expect-jsx';
+import React from "react";
+import TestUtils from "react-addons-test-utils";
+import expect from "expect";
+import expectJSX from "expect-jsx";
 
 expect.extend(expectJSX);
 
-import HelloWorld from '../../src/components/hello-world';
+import HelloWorld from "../../src/components/hello-world";
 
-describe('HelloWorld', () => {
-  it('should show correct greeting', () => {
+describe("HelloWorld", () => {
+  it("should show correct greeting", () => {
     const renderer = TestUtils.createRenderer();
 
     renderer.render(<HelloWorld name="Krabba" />);
