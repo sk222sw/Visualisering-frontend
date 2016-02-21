@@ -9,7 +9,6 @@ expect.extend(expectJSX);
 import Settings from '../../src/components/settings';
 
 describe('Settings component', () => {
-
   beforeEach(() => ReactWarnings.watchConsole());
 
   afterEach(() => expect(ReactWarnings.propWarnings().length).toBe(0));
@@ -28,9 +27,9 @@ describe('Settings component', () => {
     const renderer = TestUtils.createRenderer();
     const routes = [{
       path: 'pathOne'
-    },{
+    }, {
       path: 'pathTwo'
-    },{
+    }, {
       path: 'pathThree'
     }];
 

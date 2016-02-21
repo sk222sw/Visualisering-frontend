@@ -8,7 +8,6 @@ expect.extend(expectJSX);
 import HelloWorld from '../../src/components/hello-world';
 
 describe('HelloWorld', () => {
-
   it('should show correct greeting', () => {
     const renderer = TestUtils.createRenderer();
 

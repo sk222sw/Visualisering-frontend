@@ -5,7 +5,6 @@ import {Provider} from 'react-redux';
 import store from './store';
 import routes from './routes';
 
-
 // By wrapping the whole app in the react-redux Provider we get... magic!
 ReactDom.render(
   <Provider store={store}>

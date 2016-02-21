@@ -1,7 +1,7 @@
 import initialState from '../initial-state';
 
 export default (currentState = initialState.settings, action) => {
-  switch(action.type) {
+  switch (action.type) {
   default: return currentState;
   }
 };

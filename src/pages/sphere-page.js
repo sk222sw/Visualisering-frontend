@@ -12,7 +12,6 @@ const SpherePage = ({data}) => (<Sphere data={data} />);
 // some object destructuring on the props. The code above is equal to doing this:
 // const SpherePage = (props) => (<Sphere data={props.data} />);
 
-
 // This is the magic provided by react-redux, you can pass props to the component like Scotty beams up Kirk!
 const mapStateToProps = appState => {
   return {

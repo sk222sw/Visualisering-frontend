@@ -15,7 +15,7 @@ export default class Settings extends Component {
     this.props.saveAndStart(settings);
   }
   render() {
-    const routes = this.props.routes.filter(r => r.path !== 'settings'); //remove current settings path from array
+    const routes = this.props.routes.filter(r => r.path !== 'settings'); // remove current settings path from array
 
     // console.log(routes);
 

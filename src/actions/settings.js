@@ -9,7 +9,7 @@ export default {
 
       hashHistory.push(settings.pathsToVisit[index]);
 
-      setInterval(() =>{
+      setInterval(() => {
         index++;
         if (settings.pathsToVisit[index]) {
           hashHistory.push(settings.pathsToVisit[index]);

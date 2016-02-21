@@ -7,7 +7,7 @@ export default {
     this.spy = spyOn(console, 'error');
   },
   propWarnings() {
-    const propWarnings = this.spy.calls.filter((c) => {
+    const propWarnings = this.spy.calls.filter(c => {
       return (c.arguments &&
       c.arguments.length > 0 &&
       /(Invalid prop|Failed propType)/.test(c.arguments[0]));

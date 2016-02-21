@@ -2,7 +2,7 @@
 import initialState from '../initial-state';
 
 export default (currentState = initialState.sphere, action) => {
-  switch(action.type) {
+  switch (action.type) {
   default: return currentState;
   }
 };
