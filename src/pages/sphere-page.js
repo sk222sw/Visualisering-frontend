@@ -7,7 +7,7 @@ import Sphere from "../components/sphere";
 // as simple functions that gets their props sent in as parameters.
 // For more info see: https://facebook.github.io/react/docs/reusable-components.html#stateless-functions
 
-const SpherePage = ({data}) => (<Sphere data={data} />);
+const SpherePage = ({data}) => <Sphere data={data} />;
 // This is one of those stateless functions with some extra pizazz added by doing
 // some object destructuring on the props. The code above is equal to doing this:
 // const SpherePage = (props) => (<Sphere data={props.data} />);

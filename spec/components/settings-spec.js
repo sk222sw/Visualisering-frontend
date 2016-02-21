@@ -36,8 +36,7 @@ describe("Settings component", () => {
     renderer.render(<Settings settings={{time: 0}} routes={routes} />);
 
     const actual = renderer.getRenderOutput();
-    const expected = (
-      <span>
+    const expected = (<span>
         <label><input ref="pathOne" name="pathOne" type="checkbox" />pathOne</label>
         <label><input ref="pathTwo" name="pathTwo" type="checkbox" />pathTwo</label>
         <label><input ref="pathThree" name="pathThree" type="checkbox" />pathThree</label>
