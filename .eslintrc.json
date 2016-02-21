@@ -1,5 +1,5 @@
 {
-    "extends": "defaults/configurations/google",
+    "extends": "google",
     "parser": "babel-eslint",
     "rules": {
         "indent": [

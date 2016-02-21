@@ -37,7 +37,6 @@ export default class Sphere extends Component {
     const scene = new THREE.Scene();
     const renderer = new THREE.WebGLRenderer();
 
-
     camera.position.z = 1000;
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(width, height);
@@ -74,7 +73,7 @@ export default class Sphere extends Component {
             return;
           }
 
-          let lineLength =  1 - (this.time + c.time) / 5000.0;
+          let lineLength = 1 - (this.time + c.time) / 5000.0;
 
           if (lineLength < 0) {
             return;
@@ -110,7 +109,7 @@ export default class Sphere extends Component {
   // Translates longitude and latitude to a
   // Threejs vector3
   calculateVector(_lng, _lat) {
-    const lat =  _lat * Math.PI / 180.0;
+    const lat = _lat * Math.PI / 180.0;
     const lng = -_lng * Math.PI / 180.0;
 
     return new THREE.Vector3(

@@ -8,7 +8,6 @@ expect.extend(expectJSX);
 import ScreamingHelloWorld from '../../src/components/screaming-hello-world.js';
 
 describe('ScreamingHelloWorld', () => {
-
   it('this one screams', () => {
     const renderer = TestUtils.createRenderer();
 
