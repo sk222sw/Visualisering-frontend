@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "eslint-config-google": "^0.4.0",
+    "eslint-config-xo": "^0.10.1",
     "expect": "^1.13.4",
     "expect-jsx": "^2.2.2",
     "mocha": "^2.3.4",
