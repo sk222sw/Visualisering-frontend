@@ -1,5 +1,5 @@
 // import C from '../constants';
-import {hashHistory} from 'react-router';
+import {hashHistory} from "react-router";
 
 export default {
   saveAndStart(settings) {

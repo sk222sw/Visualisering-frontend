@@ -1,14 +1,14 @@
-import React from 'react';
-import TestUtils from 'react-addons-test-utils';
-import expect from 'expect';
-import expectJSX from 'expect-jsx';
+import React from "react";
+import TestUtils from "react-addons-test-utils";
+import expect from "expect";
+import expectJSX from "expect-jsx";
 
 expect.extend(expectJSX);
 
-import ScreamingHelloWorld from '../../src/components/screaming-hello-world.js';
+import ScreamingHelloWorld from "../../src/components/screaming-hello-world.js";
 
-describe('ScreamingHelloWorld', () => {
-  it('this one screams', () => {
+describe("ScreamingHelloWorld", () => {
+  it("this one screams", () => {
     const renderer = TestUtils.createRenderer();
 
     renderer.render(<ScreamingHelloWorld name="mattias" />);

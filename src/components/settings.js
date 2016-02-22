@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import filter from 'lodash/filter';
+import React, {Component} from "react";
+import filter from "lodash/filter";
 
 export default class Settings extends Component {
   saveSettings(e) {
     e.preventDefault();
 
-    const pathsToVisit = filter(this.refs, r => r.type === 'checkbox' && r.checked).map(r => r.name);
+    const pathsToVisit = filter(this.refs, r => r.type === "checkbox" && r.checked).map(r => r.name);
     const time = this.refs.seconds.value;
     const settings = {
       pathsToVisit,
@@ -15,7 +15,7 @@ export default class Settings extends Component {
     this.props.saveAndStart(settings);
   }
   render() {
-    const routes = this.props.routes.filter(r => r.path !== 'settings'); // remove current settings path from array
+    const routes = this.props.routes.filter(r => r.path !== "settings"); // remove current settings path from array
 
     // console.log(routes);
 
