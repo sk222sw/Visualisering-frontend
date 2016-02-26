@@ -1,16 +1,22 @@
 import React from "react";
 
-import Code from "./code";
-
-export default class Commit extends React.Component {
-
+export default class GitHubSourceCode extends React.Component {
   getData() {
     const dataComponents = this.props.data.map(data => {
       return (
         <div key={data.id}>
-          <h4>{data.user}</h4>
-            <Code code={data.commit} />
+          <div className="matrix-information-section">
+            <h2>{data.project}</h2>
+            <h3>{data.githubUser}</h3>
+            <h4>{data.fileName}</h4>
+            <ul>{data.contributors.map(contributor => {
+              return <li key={contributor.id}>{contributor}</li>;
+            })}</ul>
           </div>
+          <div className="matrix-code-section">
+            <code>{data.sourceCode}</code>;
+          </div>
+        </div>
       );
     });
 
