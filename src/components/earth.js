@@ -26,10 +26,7 @@ import Utils from "../utils/three-utils";
 export default class Earth extends Component {
   constructor() {
     super();
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.renderer = Utils.renderer();
-    this.scene = new THREE.Scene();
-    this.time = 0;
+    Utils.init(this);
   }
 
   componentDidMount() {

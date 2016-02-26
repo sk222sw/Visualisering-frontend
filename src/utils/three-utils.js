@@ -4,6 +4,13 @@ import THREE from "three";
 
 let ThreeUtils = {
 
+  init(object) {
+    object.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    object.renderer = this.renderer();
+    object.scene = new THREE.Scene();
+    object.time = 0;
+  },
+
   // Translates longitude and latitude to a Threejs vector3
   calculateVector(_lng, _lat) {
     const lat = _lat * Math.PI / 180.0;
