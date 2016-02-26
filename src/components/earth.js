@@ -1,9 +1,8 @@
 /*
  * The Earth component visualizes lng/lat coordinates with decreasing lines.
  *
- * A webgl earth is "pinned" with lines that shrinks over time to
- * visualise the location of events and give a representation of when the
- * event happened by adjusting the length of the "pins".
+ * Lines appear inte the space surrounding the earth and slowly
+ * "lands" at the geo cords where the commit originated.
  *
  * Takes an array of objects containing lng, lat and time.
  * The Time is expected to be in the unix time format.
@@ -27,68 +26,74 @@ import Utils from "../utils/three-utils";
 export default class Earth extends Component {
   constructor() {
     super();
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.renderer = Utils.renderer();
+    this.scene = new THREE.Scene();
     this.time = 0;
   }
 
   componentDidMount() {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const container = document.getElementById("earth-container");
-    const renderer = Utils.renderer();
     const geometry = new THREE.SphereGeometry(0.5, 32, 32);
     const material = new THREE.MeshBasicMaterial();
     const earth = new THREE.Mesh(geometry, material);
 
-    container.appendChild(renderer.domElement);
+    container.appendChild(this.renderer.domElement);
     material.map = THREE.ImageUtils.loadTexture("assets/pictures/earth.jpg");
 
-    scene.add(earth);
-    camera.position.z = 1;
+    this.scene.add(earth);
+    this.camera.position.z = 1;
 
-    const renderAnimation = () => {
-      requestAnimationFrame(renderAnimation);
-      scene.rotation.y += 0.003;
-
-      if (this.time % 100 === 0) {
-        scene.remove(this.commits);
-        this.commits = new THREE.Group();
-
-        this.props.data.forEach(c => {
-          if (this.time - c.time < 0) {
-            return;
-          }
-
-          let lineLength = 1 - (this.time + c.time) / 5000.0;
-
-          if (lineLength < 0) {
-            return;
-          }
-
-          const geometry = new THREE.Geometry();
-          const vertex = Utils.calculateVector(c.lng, c.lat);
-          vertex.multiplyScalar(lineLength);
-
-          geometry.vertices.push(vertex);
-
-          const vertex2 = vertex.clone();
-
-          vertex2.multiplyScalar(lineLength);
-          geometry.vertices.push(vertex2);
-
-          const line = new THREE.Line(
-            geometry,
-            new THREE.LineBasicMaterial({color: 0xffffff, opacity: 3})
-            );
-
-          this.commits.add(line);
-        });
-        scene.add(this.commits);
-      }
-      renderer.render(scene, camera);
-      this.time += 1;
+    const animationLoop = () => {
+      this.renderAnimation();
+      requestAnimationFrame(animationLoop);
     };
 
-    renderAnimation();
+    animationLoop();
+  }
+
+  renderAnimation() {
+    this.scene.rotation.y += 0.003;
+
+    if (this.time % 100 === 0) {
+      this.scene.remove(this.commits);
+      this.commits = new THREE.Group();
+
+      this.props.data.forEach(commit => {
+        this.visualizeCommit(commit, this.time);
+      });
+      this.scene.add(this.commits);
+    }
+    this.renderer.render(this.scene, this.camera);
+    this.time += 1;
+  }
+
+  visualizeCommit(commit, time) {
+    if (time - commit.time < 0) {
+      return;
+    }
+    let lineLength = 1 - (time + commit.time) / 5000.0;
+    if (lineLength < 0) {
+      return;
+    }
+
+    const geometry = new THREE.Geometry();
+    const vertex = Utils.calculateVector(commit.lng, commit.lat);
+    vertex.multiplyScalar(lineLength);
+
+    geometry.vertices.push(vertex);
+
+    const vertex2 = vertex.clone();
+
+    vertex2.multiplyScalar(lineLength);
+    geometry.vertices.push(vertex2);
+
+    const line = new THREE.Line(
+      geometry,
+      new THREE.LineBasicMaterial({color: 0xffffff, opacity: 3})
+      );
+
+    this.commits.add(line);
   }
 
   render() {
