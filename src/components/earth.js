@@ -22,6 +22,7 @@
 
 import React, {Component} from "react";
 import THREE from "three";
+import Utils from "../utils/three-utils";
 
 export default class Earth extends Component {
   constructor() {
@@ -67,7 +68,7 @@ export default class Earth extends Component {
           }
 
           const geometry = new THREE.Geometry();
-          const vertex = this.calculateVector(c.lng, c.lat);
+          const vertex = Utils.calculateVector(c.lng, c.lat);
           vertex.multiplyScalar(lineLength);
 
           geometry.vertices.push(vertex);
@@ -91,18 +92,6 @@ export default class Earth extends Component {
     };
 
     renderAnimation();
-  }
-
-  // Translates longitude and latitude to a
-  // Threejs vector3
-  calculateVector(_lng, _lat) {
-    const lat = _lat * Math.PI / 180.0;
-    const lng = -_lng * Math.PI / 180.0;
-
-    return new THREE.Vector3(
-      Math.cos(lat) * Math.cos(lng),
-      Math.sin(lat),
-      Math.cos(lat) * Math.sin(lng));
   }
 
   render() {
