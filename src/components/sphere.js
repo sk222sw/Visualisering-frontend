@@ -22,26 +22,23 @@
 
 import React, {Component} from "react";
 import THREE from "three";
+import Utils from "../utils/three-utils";
 
 export default class Sphere extends Component {
   constructor() {
     super();
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.renderer = Utils.renderer();
+    this.scene = new THREE.Scene();
     this.time = 0;
   }
 
   componentDidMount() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
     const container = document.getElementById("sphere-container");
-    const camera = new THREE.PerspectiveCamera(75, width / height, 1, 1000);
-    const scene = new THREE.Scene();
-    const renderer = new THREE.WebGLRenderer();
+    this.camera.position.z = 1000;
+    this.renderer.setPixelRatio(window.devicePixelRatio);
 
-    camera.position.z = 1000;
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(width, height);
-
-    container.appendChild(renderer.domElement);
+    container.appendChild(this.renderer.domElement);
 
     // Create Particles
     const material = new THREE.SpriteMaterial({
@@ -50,72 +47,65 @@ export default class Sphere extends Component {
 
     for (let i = 0; i < 1000; i += 1) {
       const particle = new THREE.Sprite(material);
-
       particle.position.x = Math.random() * 2 - 1;
       particle.position.y = Math.random() * 2 - 1;
       particle.position.z = Math.random() * 2 - 1;
       particle.position.normalize();
       particle.position.multiplyScalar(Math.random() * 10 + 450);
       particle.scale.multiplyScalar(1);
-      scene.add(particle);
+      this.scene.add(particle);
     }
 
     const animationLoop = () => {
+      this.renderAnimation();
       requestAnimationFrame(animationLoop);
-      scene.rotation.y += 0.005;
-
-      if (this.time % 100 === 0) {
-        scene.remove(this.commits);
-        this.commits = new THREE.Group();
-
-        this.props.data.forEach(c => {
-          if (this.time - c.time < 0) {
-            return;
-          }
-
-          const lineLength = 1 - (this.time + c.time) / 5000.0;
-
-          if (lineLength < 0) {
-            return;
-          }
-
-          const geometry = new THREE.Geometry();
-          const vertex = this.calculateVector(c.lng, c.lat);
-
-          vertex.multiplyScalar(450);
-          geometry.vertices.push(vertex);
-
-          const vertex2 = vertex.clone();
-
-          vertex2.multiplyScalar(1 + lineLength);
-          geometry.vertices.push(vertex2);
-
-          const line = new THREE.Line(
-            geometry,
-            new THREE.LineBasicMaterial({color: 0xffffff, opacity: 3})
-            );
-
-          this.commits.add(line);
-        });
-        scene.add(this.commits);
-      }
-      renderer.render(scene, camera);
-      this.time += 1;
     };
 
     animationLoop();
   }
 
-  // Translates longitude and latitude to a
-  // Threejs vector3
-  calculateVector(_lng, _lat) {
-    const lat = _lat * Math.PI / 180.0;
-    const lng = -_lng * Math.PI / 180.0;
+  renderAnimation() {
+    this.scene.rotation.y += 0.005;
+    if (this.time % 100 === 0) {
+      this.scene.remove(this.commits);
+      this.commits = new THREE.Group();
 
-    return new THREE.Vector3(
-      Math.cos(lat) * Math.cos(lng),
-      Math.sin(lat),
-      Math.cos(lat) * Math.sin(lng));
+      this.props.data.forEach(commit => {
+        this.visualizeCommit(commit, this.time);
+      });
+
+      this.scene.add(this.commits);
+    }
+    this.renderer.render(this.scene, this.camera);
+    this.time += 1;
+  }
+
+  visualizeCommit(commit, time) {
+    if (time - commit.time < 0) {
+      return;
+    }
+    let lineLength = 1 - (time + commit.time) / 5000.0;
+    if (lineLength < 0) {
+      return;
+    }
+
+    const geometry = new THREE.Geometry();
+    const vertex = Utils.calculateVector(commit.lng, commit.lat);
+
+    vertex.multiplyScalar(450);
+    geometry.vertices.push(vertex);
+
+    const vertex2 = vertex.clone();
+
+    vertex2.multiplyScalar(1 + lineLength);
+    geometry.vertices.push(vertex2);
+
+    const line = new THREE.Line(
+      geometry,
+      new THREE.LineBasicMaterial({color: 0xffffff, opacity: 3})
+      );
+
+    this.commits.add(line);
   }
 
   render() {
