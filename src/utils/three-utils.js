@@ -13,6 +13,13 @@ let ThreeUtils = {
       Math.cos(lat) * Math.cos(lng),
       Math.sin(lat),
       Math.cos(lat) * Math.sin(lng));
+  },
+
+  // Creates a new Webgl renderer and set the size
+  renderer() {
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    return renderer;
   }
 };
 

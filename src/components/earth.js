@@ -34,17 +34,14 @@ export default class Earth extends Component {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const container = document.getElementById("earth-container");
-
-    const renderer = new THREE.WebGLRenderer();
-
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-
+    const renderer = Utils.renderer();
     const geometry = new THREE.SphereGeometry(0.5, 32, 32);
     const material = new THREE.MeshBasicMaterial();
+    const earth = new THREE.Mesh(geometry, material);
+
+    container.appendChild(renderer.domElement);
     material.map = THREE.ImageUtils.loadTexture("assets/pictures/earth.jpg");
 
-    const earth = new THREE.Mesh(geometry, material);
     scene.add(earth);
     camera.position.z = 1;
 
