@@ -8,17 +8,59 @@ expect.extend(expectJSX);
 
 import Matrix from "../../src/components/matrix";
 
+const fakeData = [{id: 1,
+  project: "linux",
+  githubUser: "torvalds",
+  fileName: "bug.h",
+  contributors: ["rjarzmik", "bjdooks-ct", "arndb"],
+  sourceCode: `void hook_fault_code(int nr, int (*fn)(unsigned long, unsigned int,
+				       struct pt_regs *),
+		     int sig, int code, const char *name);
+
+void hook_ifault_code(int nr, int (*fn)(unsigned long, unsigned int,
+				       struct pt_regs *),
+		     int sig, int code, const char *name);
+`}];
+
+const renderer = TestUtils.createRenderer();
+renderer.render(<Matrix data={fakeData} />);
+const actual = renderer.getRenderOutput();
+
 describe("Matrix", () => {
-  it("should render an h4 with user name", () => {
-    const renderer = TestUtils.createRenderer();
+  it("should render an h3 with project name", () => {
+    const expected = <h2>linux</h2>;
+    expect(actual).toIncludeJSX(expected);
+  });
 
-    const fakeData = [{id: 1, user: "Lord Howell", commit: "Some text"}];
+  it("should render an h4 with githubUser", () => {
+    const expected = <h3>torvalds</h3>;
+    expect(actual).toIncludeJSX(expected);
+  });
 
-    renderer.render(<Matrix data={fakeData} />);
+  it("should render an h2 with fileName", () => {
+    const expected = <h4>bug.h</h4>;
+    expect(actual).toIncludeJSX(expected);
+  });
 
-    const actual = renderer.getRenderOutput();
-    const expected = <h4>Lord Howell</h4>;
+  it("should render a list with contributors", () => {
+    const expected = (
+      <ul><li>rjarzmik</li><li>bjdooks-ct</li><li>arndb</li></ul>
+    );
+    expect(actual).toIncludeJSX(expected);
+  });
 
+  it("should render a code-node with sourcecode", () => {
+    const expected = (
+      <code>void hook_fault_code(int nr, int (*fn)(unsigned long, unsigned int,
+        struct pt_regs *),
+        int sig, int code, const char *name);
+
+        void hook_ifault_code(int nr, int (*fn)(unsigned long, unsigned int,
+        struct pt_regs *),
+        int sig, int code, const char *name);
+        </code>
+    );
     expect(actual).toIncludeJSX(expected);
   });
 });
+

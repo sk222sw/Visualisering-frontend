@@ -2,12 +2,18 @@ export default {
   matrix: {
     data: [{
       id: 1,
-      user: "sonny",
-      commit: "if (hej) {drink.Coffe()}"
-    }, {
-      id: 2,
-      user: "Lord Howell",
-      commit: "if (morning) {goto Work}"
+      project: "linux",
+      githubUser: "torvalds",
+      fileName: "bug.h",
+      contributors: ["rjarzmik", "bjdooks-ct", "arndb"],
+      sourceCode: `void hook_fault_code(int nr, int (*fn)(unsigned long, unsigned int,
+  struct pt_regs *),
+int sig, int code, const char *name);
+
+void hook_ifault_code(int nr, int (*fn)(unsigned long, unsigned int,
+  struct pt_regs *),
+int sig, int code, const char *name);`
+
     }]
   },
   settings: {
