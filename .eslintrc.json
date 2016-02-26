@@ -1,4 +1,7 @@
 {
+    "plugins": [
+        "react"
+    ],
     "extends": "google",
     "parser": "babel-eslint",
     "rules": {
@@ -18,6 +21,9 @@
             2,
             "always"
         ],
+        "no-var": 2,
+        "prefer-const": 2,
+        "prefer-arrow-callback": 2,
         "dot-location": [2, "property"],
         "max-len": 0,
         "no-extra-parens": 0,
@@ -62,11 +68,10 @@
         "commonjs": true,
         "mocha": true
     },
-    "ecmaFeatures": {
-        "jsx": true,
-        "experimentalObjectRestSpread": true
-    },
-    "plugins": [
-        "react"
-    ]
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true,
+            "experimentalObjectRestSpread": true
+        }
+    }
 }

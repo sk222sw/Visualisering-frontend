@@ -8,9 +8,9 @@ export default {
   },
   propWarnings() {
     const propWarnings = this.spy.calls.filter(c => {
-      return (c.arguments &&
+      return c.arguments &&
       c.arguments.length > 0 &&
-      /(Invalid prop|Failed propType)/.test(c.arguments[0]));
+      /(Invalid prop|Failed propType)/.test(c.arguments[0]);
     });
 
     return propWarnings;

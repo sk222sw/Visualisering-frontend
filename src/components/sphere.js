@@ -49,7 +49,7 @@ export default class Sphere extends Component {
     });
 
     for (let i = 0; i < 1000; i += 1) {
-      let particle = new THREE.Sprite(material);
+      const particle = new THREE.Sprite(material);
 
       particle.position.x = Math.random() * 2 - 1;
       particle.position.y = Math.random() * 2 - 1;
@@ -73,7 +73,7 @@ export default class Sphere extends Component {
             return;
           }
 
-          let lineLength = 1 - (this.time + c.time) / 5000.0;
+          const lineLength = 1 - (this.time + c.time) / 5000.0;
 
           if (lineLength < 0) {
             return;
@@ -119,7 +119,7 @@ export default class Sphere extends Component {
   }
 
   render() {
-    return (<div id="sphere-container" />);
+    return <div id="sphere-container" />;
   }
 }
 
