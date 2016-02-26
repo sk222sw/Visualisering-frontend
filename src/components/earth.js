@@ -69,7 +69,7 @@ export default class Earth extends Component {
     if (time - commit.time < 0) {
       return;
     }
-    let lineLength = 1 - (time + commit.time) / 5000.0;
+    const lineLength = 1 - (time + commit.time) / 5000.0;
     if (lineLength < 0) {
       return;
     }
