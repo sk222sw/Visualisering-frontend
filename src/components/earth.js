@@ -1,9 +1,8 @@
 /*
- * The Sphere component visualizes lng/lat coordinates with decreasing lines.
+ * The Earth component visualizes lng/lat coordinates with decreasing lines.
  *
- * A webgl sphere is "pinned" with lines that shrinks over time to
- * visualise the location of events and give a representation of when the
- * event happened by adjusting the length of the "pins".
+ * Lines appear inte the space surrounding the earth and slowly
+ * "lands" at the geo cords where the commit originated.
  *
  * Takes an array of objects containing lng, lat and time.
  * The Time is expected to be in the unix time format.
@@ -24,34 +23,23 @@ import React, {Component} from "react";
 import THREE from "three";
 import Utils from "../utils/three-utils";
 
-export default class Sphere extends Component {
+export default class Earth extends Component {
   constructor() {
     super();
     Utils.init(this);
   }
 
   componentDidMount() {
-    const container = document.getElementById("sphere-container");
-    this.camera.position.z = 1000;
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    const container = document.getElementById("earth-container");
+    const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+    const material = new THREE.MeshBasicMaterial();
+    const earth = new THREE.Mesh(geometry, material);
 
     container.appendChild(this.renderer.domElement);
+    material.map = THREE.ImageUtils.loadTexture("assets/pictures/earth.jpg");
 
-    // Create Particles
-    const material = new THREE.SpriteMaterial({
-      color: 0xffffff
-    });
-
-    for (let i = 0; i < 1000; i += 1) {
-      const particle = new THREE.Sprite(material);
-      particle.position.x = Math.random() * 2 - 1;
-      particle.position.y = Math.random() * 2 - 1;
-      particle.position.z = Math.random() * 2 - 1;
-      particle.position.normalize();
-      particle.position.multiplyScalar(Math.random() * 10 + 450);
-      particle.scale.multiplyScalar(1);
-      this.scene.add(particle);
-    }
+    this.scene.add(earth);
+    this.camera.position.z = 1;
 
     const animationLoop = () => {
       this.renderAnimation();
@@ -62,7 +50,8 @@ export default class Sphere extends Component {
   }
 
   renderAnimation() {
-    this.scene.rotation.y += 0.005;
+    this.scene.rotation.y += 0.003;
+
     if (this.time % 100 === 0) {
       this.scene.remove(this.commits);
       this.commits = new THREE.Group();
@@ -70,7 +59,6 @@ export default class Sphere extends Component {
       this.props.data.forEach(commit => {
         this.visualizeCommit(commit, this.time);
       });
-
       this.scene.add(this.commits);
     }
     this.renderer.render(this.scene, this.camera);
@@ -88,13 +76,13 @@ export default class Sphere extends Component {
 
     const geometry = new THREE.Geometry();
     const vertex = Utils.calculateVector(commit.lng, commit.lat);
+    vertex.multiplyScalar(lineLength);
 
-    vertex.multiplyScalar(450);
     geometry.vertices.push(vertex);
 
     const vertex2 = vertex.clone();
 
-    vertex2.multiplyScalar(1 + lineLength);
+    vertex2.multiplyScalar(lineLength);
     geometry.vertices.push(vertex2);
 
     const line = new THREE.Line(
@@ -106,11 +94,11 @@ export default class Sphere extends Component {
   }
 
   render() {
-    return <div id="sphere-container" />;
+    return (<div id="earth-container" />);
   }
 }
 
-Sphere.propTypes = {
+Earth.propTypes = {
   data: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       lat: React.PropTypes.number,
