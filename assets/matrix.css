@@ -1,6 +1,10 @@
-@import url('reset.css');
+@import url("reset.css");
+@import url("//fonts.googleapis.com/css?family=Catamaran:400,900");
+/*@import url("//fonts.googleapis.com/css?family=Martel+Sans:400,900");*/
 
-/*INDEX*/
+* {
+    overflow: hidden;
+}
 
 body {
     width: 100%;
@@ -23,41 +27,59 @@ body {
 
 .matrix-info-section {
     position: absolute;
-    top: 90%;
-    width: 20%;
-    background: rgba(255,255,255,0.05);
+    /*border-radius: 100px;*/
+    margin: auto;
+    top: auto; left: 0; right: 0; bottom: 0;
+    /*width: 65%;*/
+    background: rgba(0,0,0,0.6);
+    font-size: 17px;
+    text-align: center;
+    font-family: 'Catamaran', sans-serif;
 }
+
+.matrix-info-section div {
+}
+
+/* for all static texts in the info section */
+.info-section-text {
+    font-family: 'Martel Sans', sans-serif;
+    margin: 2px;
+    color: yellow;
+}
+/* for all names provided by react props in the info section */
+.info-section-name {
+    color: #FF5733;
+}
+
 
 .project-info-section {}
 
 .project-info-section div, h2 {
-    color: red;
-    display: inline-block;
+    /*display: inline-block;*/
 }
 .project-info {}
 .project-text {}
 .project-name {
-    color: white;
+    font-size: 40px;
 }
 
 .filename-section div, h4{
     display: inline-block;
 }
 .filename {
-    color: red;
 }
 
 .github-user-section div, h3 {
     display: inline-block;
 }
 .github-user {
-    color: red;
 }
 
 .contributors-section ul, li {
     display: inline-block;
 }
-.contributors-list {}
+.contributors-list {
+    /*background: rgba(0, 0, 0, 0.7);*/
+}
 .contributor {
-    color: red;
 }
