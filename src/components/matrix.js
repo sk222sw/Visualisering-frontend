@@ -1,5 +1,11 @@
 import React from "react";
 
+// static texts
+const projectText = "visualizing source code from github repo: ";
+const fileNameText = "filename: ";
+const repoOwner = "owner: ";
+const contributorTitle = "contributors: ";
+
 export default class GitHubSourceCode extends React.Component {
   getData() {
     const dataComponents = this.props.data.map(data => {
@@ -11,13 +17,13 @@ export default class GitHubSourceCode extends React.Component {
           <div className="matrix-info-section">
             <div className="project-info-section">
               <div className="project-info project-text">
-                visualizing source code from github repo:
+                {projectText}
               </div>
               <h2 className="project-info project-name">{data.project}</h2>
             </div>
             <div className="filename-section">
               <div className="filename-text">
-                filename:
+                {fileNameText}
               </div>
               <h4 className="filename-name">
                 {data.fileName}
@@ -25,13 +31,13 @@ export default class GitHubSourceCode extends React.Component {
             </div>
             <div className="github-user-section">
               <div className="github-user-text">
-                owner:
+                {repoOwner}
               </div>
               <h3 className="github-user">{data.githubUser}</h3>
             </div>
             <div className="contributors-section">
               <div className="contributors-text">
-                contributors:
+                {contributorTitle}
               </div>
               <ul className="contributors-list">
                 {data.contributors.map(contributor => {
