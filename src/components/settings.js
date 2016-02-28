@@ -20,7 +20,7 @@ export default class Settings extends Component {
     // console.log(routes);
 
     return (
-      <div className="wrapper-div">
+      <div className="settings-component">
         <form onSubmit={this.saveSettings.bind(this)} className="centered-div">
           <h3>Settings</h3>
           <strong>Select visualizations</strong>

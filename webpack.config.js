@@ -20,7 +20,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /node_modules/,
-                loader: 'style-loader!autoprefix-loader!sass-loader'
+                loaders: [ 'style', 'css?sourceMap', 'autoprefixer', 'sass?sourceMap' ]
             }
         ]
     },
