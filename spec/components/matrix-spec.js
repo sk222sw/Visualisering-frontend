@@ -27,17 +27,17 @@ renderer.render(<Matrix data={fakeData} />);
 const actual = renderer.getRenderOutput();
 
 describe("Matrix", () => {
-  it("should render an h3 with project name", () => {
+  it("should render an h2 with project name", () => {
     const expected = <h2>linux</h2>;
     expect(actual).toIncludeJSX(expected);
   });
 
   it("should render an h4 with githubUser", () => {
-    const expected = <h3>torvalds</h3>;
+    const expected = <h4>torvalds</h4>;
     expect(actual).toIncludeJSX(expected);
   });
 
-  it("should render an h2 with fileName", () => {
+  it("should render an h4 with fileName", () => {
     const expected = <h4>bug.h</h4>;
     expect(actual).toIncludeJSX(expected);
   });

@@ -42,7 +42,6 @@ body {
 
 /* for all static texts in the info section */
 .info-section-text {
-    font-family: 'Martel Sans', sans-serif;
     margin: 2px;
     color: yellow;
 }
@@ -78,8 +77,8 @@ body {
 .contributors-section ul, li {
     display: inline-block;
 }
-.contributors-list {
-    /*background: rgba(0, 0, 0, 0.7);*/
+.contributor-list {
+    color: #FF5733;
 }
 .contributor {
 }
