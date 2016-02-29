@@ -61,10 +61,11 @@ export default class Sphere extends Component {
     };
 
     animationLoop();
+    setTimeout(this.handleResize.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener("resize", this.handleResize);
+    window.removeEventListener("resize", this.handleResize.bind(this));
   }
 
   handleResize(e) {

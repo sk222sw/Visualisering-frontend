@@ -49,6 +49,7 @@ export default class Earth extends Component {
     };
 
     animationLoop();
+    setTimeout(this.handleResize.bind(this));
   }
 
   componentWillUnmount() {
@@ -110,7 +111,7 @@ export default class Earth extends Component {
   }
 
   render() {
-    return (<div id="earth-container" refs="coolShit" />);
+    return (<div id="earth-container" />);
   }
 }
 
