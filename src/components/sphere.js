@@ -31,6 +31,8 @@ export default class Sphere extends Component {
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.handleResize.bind(this));
+
     const container = document.getElementById("sphere-container");
     this.camera.position.z = 1000;
     this.renderer.setPixelRatio(window.devicePixelRatio);
@@ -59,6 +61,21 @@ export default class Sphere extends Component {
     };
 
     animationLoop();
+    setTimeout(this.handleResize.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize.bind(this));
+  }
+
+  handleResize(e) {
+    const container = document.getElementById("sphere-container");
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
+
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
   }
 
   renderAnimation() {
