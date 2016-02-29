@@ -5,11 +5,17 @@ import THREE from "three";
 const ThreeUtils = {
 
   init(object) {
-    object.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    object.renderer = this.renderer();
+    const width = object.size ? object.size.width : window.innerWidth;
+    const height = object.size ? object.size.height : window.innerHeight;
+
+    object.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    object.renderer = this.renderer(width, height);
     object.scene = new THREE.Scene();
     object.time = 0;
   },
+
+  width: null,
+  height: null,
 
   // Translates longitude and latitude to a Threejs vector3
   calculateVector(_lng, _lat) {
@@ -23,9 +29,9 @@ const ThreeUtils = {
   },
 
   // Creates a new Webgl renderer and set the size
-  renderer() {
+  renderer(width, height) {
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(width, height);
     return renderer;
   }
 };

@@ -30,6 +30,8 @@ export default class Earth extends Component {
   }
 
   componentDidMount() {
+    window.addEventListener("resize", this.handleResize.bind(this));
+
     const container = document.getElementById("earth-container");
     const geometry = new THREE.SphereGeometry(0.5, 32, 32);
     const material = new THREE.MeshBasicMaterial();
@@ -47,6 +49,20 @@ export default class Earth extends Component {
     };
 
     animationLoop();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.handleResize);
+  }
+
+  handleResize(e) {
+    const container = document.getElementById("earth-container");
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
+
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
   }
 
   renderAnimation() {
@@ -94,7 +110,7 @@ export default class Earth extends Component {
   }
 
   render() {
-    return (<div id="earth-container" />);
+    return (<div id="earth-container" refs="coolShit" />);
   }
 }
 
