@@ -12,7 +12,9 @@ export default class Settings extends Component {
       time
     };
 
-    this.props.saveAndStart(settings);
+    if (time !== "" && pathsToVisit.length !== 0) {
+      this.props.saveAndStart(settings);
+    }
   }
   render() {
     const routes = this.props.routes.filter(r => r.path !== "settings"); // remove current settings path from array
