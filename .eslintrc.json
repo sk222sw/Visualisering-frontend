@@ -30,6 +30,7 @@
         "comma-dangle": 1,
         "space-unary-ops": 1,
         "no-unused-vars": [2, {"args": "none"}],
+        "no-unused-expressions": [2, { "allowTernary": true }],
         "react/display-name":
             [1, { "acceptTranspilerName": true }],
         "react/forbid-prop-types": 1,

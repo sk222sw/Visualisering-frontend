@@ -1,5 +1,7 @@
 const C = {
-  STOP_SPHERE: "STOP_SPHERE"
+  // Regarding WS
+  WS_CONNECTED: "WS_CONNECTED",
+  WS_REQUEST_DATA: "WS_REQUEST_DATA"
 };
 
 export default C;
