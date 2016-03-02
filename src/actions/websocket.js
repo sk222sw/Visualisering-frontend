@@ -1,6 +1,6 @@
 import C from "../constants";
-export const websocket = new WebSocket("ws://localhost:5000");
-// export const websocket = new WebSocket("ws://iviz-back.herokuapp.com/");
+// export const websocket = new WebSocket("ws://localhost:5000");
+export const websocket = new WebSocket("ws://iviz-back.herokuapp.com/");
 
 export default {
   getDataFromBackend() {
