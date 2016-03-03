@@ -74,10 +74,20 @@ export default class GitHubSourceCode extends React.Component {
     c.height = window.innerHeight;
 
     const fontColor = "green";
-    const fontSize = 12;
+    const fontSize = 30;
     const fontFamily = "courier";
+    const columns = c.width / fontSize;
 
     const characterSet = "HEJ LITE TEXT".split("");
+
+    const drops = [];
+    // for (const column of columns) {
+    //   drops[column] = 1;
+    // }
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
 
     function makeItRain() {
       // resets the canvas to a black screen
@@ -87,9 +97,18 @@ export default class GitHubSourceCode extends React.Component {
       ctx.fillRect(0, 0, c.width, c.height);
 
       ctx.fillStyle = fontColor;
-      ctx.font = `{fontSize}px {fontFamily}`;
-      ctx.fillText("tjabba krabba", 100, 100);
+      ctx.font = fontSize + "px " + fontFamily;
 
+      for (let i = 0; i < drops.length; i++) {
+        const char = characterSet[Math.floor(Math.random() * characterSet.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > c.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
     }
 
     setInterval(makeItRain, 50);
