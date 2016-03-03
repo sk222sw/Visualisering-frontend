@@ -7,12 +7,16 @@ const repoOwner = "owner: ";
 const contributorTitle = "contributors: ";
 
 export default class GitHubSourceCode extends React.Component {
+  componentDidMount() {
+    this.initMatrix();
+  }
+
   getData() {
     const dataComponents = this.props.data.map(data => {
       return (
         <div key={data.id} className="matrix-visualization">
           <div className="matrix-code-section">
-            <code>{data.sourceCode}</code>;
+            <canvas id="matrix-canvas"></canvas>
           </div>
           <div className="matrix-info-section">
             <div className="project-info-section">
@@ -61,6 +65,15 @@ export default class GitHubSourceCode extends React.Component {
     });
 
     return dataComponents;
+  }
+
+  initMatrix() {
+    const c = document.querySelector("#matrix-canvas");
+    const ctx = c.getContext("2d");
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, c.width, c.height);
   }
 
   render() {
