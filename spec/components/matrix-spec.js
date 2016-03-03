@@ -48,19 +48,5 @@ describe("Matrix", () => {
     );
     expect(actual).toIncludeJSX(expected);
   });
-
-  it("should render a code-node with sourcecode", () => {
-    const expected = (
-      <code>void hook_fault_code(int nr, int (*fn)(unsigned long, unsigned int,
-        struct pt_regs *),
-        int sig, int code, const char *name);
-
-        void hook_ifault_code(int nr, int (*fn)(unsigned long, unsigned int,
-        struct pt_regs *),
-        int sig, int code, const char *name);
-        </code>
-    );
-    expect(actual).toIncludeJSX(expected);
-  });
 });
 

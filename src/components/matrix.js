@@ -6,13 +6,51 @@ const fileNameText = "filename: ";
 const repoOwner = "owner: ";
 const contributorTitle = "contributors: ";
 
+// matrix settings
+// font size will affect the size of the font and
+// the number of drop columns
+const fontSize = 12;
+const fontColor = "green";
+const fontFamily = "courier";
+const contextFont = fontSize + "px " + fontFamily;
+
+// eslint cant find window. change these in initMatrix()
+// const matrixWidth = window.innerWidth;
+// const matrixHeight = window.innerHeight;
+
+// Lower opacity means the characters will leave a longer
+// tail and the background color will be lighter
+const contextOpacity = 0.05;
+
+// contextBackground is used to reset the background before
+// the next set of characters is rendered.
+const contextBackground = "rgba(0, 0, 0, " + contextOpacity + ")";
+
+// speed in milliseconds - lower is faster
+const speed = 30;
+
+// this adds an initial vertical position to each drop point.
+// The value is multiplied by fontSize when rendered in makeItRain().
+// This means that  1 = Initially all drops will start from the top
+//                      at the same time
+//                  someValueGreaterThan c.height = all drops start randomly
+const initialDropValue = 1;
+
+// used to determine whether a character drop should restart at the top.
+// used as: if (Math.random() > chanceOfDropReset)
+const chanceOfDropReset = 0.98;
+
 export default class GitHubSourceCode extends React.Component {
+  componentDidMount() {
+    this.initMatrix();
+  }
+
   getData() {
     const dataComponents = this.props.data.map(data => {
       return (
         <div key={data.id} className="matrix-visualization">
           <div className="matrix-code-section">
-            <code>{data.sourceCode}</code>;
+            <canvas id="matrix-canvas"></canvas>
           </div>
           <div className="matrix-info-section">
             <div className="project-info-section">
@@ -61,6 +99,48 @@ export default class GitHubSourceCode extends React.Component {
     });
 
     return dataComponents;
+  }
+
+  initMatrix() {
+    const c = document.querySelector("#matrix-canvas");
+    const ctx = c.getContext("2d");
+    c.width = window.innerWidth;
+    c.height = window.innerHeight;
+    ctx.font = contextFont;
+
+    const columns = c.width / fontSize;
+    const characterSet = this.props.data[0].sourceCode.split("");
+    const drops = [];
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = initialDropValue;
+    }
+
+    /**
+     * Matrix module logic
+     */
+    function makeItRain() {
+      // reset canvas before next character rendering
+      // then set it back to the font color
+      ctx.fillStyle = contextBackground;
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.fillStyle = fontColor;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = characterSet[Math.floor(Math.random() * characterSet.length)];
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        // if a character travels past the window height it might reset and
+        // start from the top. this is what makes the drops appear randomly
+        if (drops[i] * fontSize > c.height && Math.random() > chanceOfDropReset) {
+          drops[i] = 0;
+        }
+
+        drops[i]++;
+      }
+    }
+
+    setInterval(makeItRain, speed);
   }
 
   render() {
