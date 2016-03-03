@@ -38,10 +38,11 @@ export default class Earth extends Component {
     const earth = new THREE.Mesh(geometry, material);
 
     container.appendChild(this.renderer.domElement);
-    material.map = THREE.ImageUtils.loadTexture("assets/pictures/earth.jpg");
+    material.map = THREE.ImageUtils.loadTexture("assets/pictures/earth.png");
 
     this.scene.add(earth);
-    this.camera.position.z = 1;
+    this.camera.position.z = 1.3;
+    this.scene.rotation.x = 0.5;
 
     const animationLoop = () => {
       this.renderAnimation();
@@ -67,7 +68,8 @@ export default class Earth extends Component {
   }
 
   renderAnimation() {
-    this.scene.rotation.y += 0.003;
+    this.scene.rotation.y += 0.009;
+    // this.scene.rotation.y = -1.5;
 
     if (this.time % 100 === 0) {
       this.scene.remove(this.commits);
@@ -79,32 +81,34 @@ export default class Earth extends Component {
       this.scene.add(this.commits);
     }
     this.renderer.render(this.scene, this.camera);
-    this.time += 1;
+    this.time += 3;
   }
 
   visualizeCommit(commit, time) {
     if (time - commit.time < 0) {
       return;
     }
-    const lineLength = 1 - (time + commit.time) / 5000.0;
-    if (lineLength < 0) {
+
+    const distanceFromEarth = 1 + (commit.time - time) / 10000;
+
+    if (distanceFromEarth < 0) {
       return;
     }
 
     const geometry = new THREE.Geometry();
     const vertex = Utils.calculateVector(commit.lng, commit.lat);
-    vertex.multiplyScalar(lineLength);
+    vertex.multiplyScalar(distanceFromEarth);
 
     geometry.vertices.push(vertex);
 
     const vertex2 = vertex.clone();
 
-    vertex2.multiplyScalar(lineLength);
+    vertex2.multiplyScalar(distanceFromEarth);
     geometry.vertices.push(vertex2);
 
     const line = new THREE.Line(
       geometry,
-      new THREE.LineBasicMaterial({color: 0xffffff, opacity: 3})
+      new THREE.LineBasicMaterial({color: 0xff0000, opacity: 3})
       );
 
     this.commits.add(line);
