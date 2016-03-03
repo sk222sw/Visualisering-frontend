@@ -72,8 +72,27 @@ export default class GitHubSourceCode extends React.Component {
     const ctx = c.getContext("2d");
     c.width = window.innerWidth;
     c.height = window.innerHeight;
-    ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, c.width, c.height);
+
+    const fontColor = "green";
+    const fontSize = 12;
+    const fontFamily = "courier";
+
+    const characterSet = "HEJ LITE TEXT".split("");
+
+    function makeItRain() {
+      // resets the canvas to a black screen
+      // but with a slight opacity to make the
+      // old characters create a new background
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, c.width, c.height);
+
+      ctx.fillStyle = fontColor;
+      ctx.font = `{fontSize}px {fontFamily}`;
+      ctx.fillText("tjabba krabba", 100, 100);
+
+    }
+
+    setInterval(makeItRain, 50);
   }
 
   render() {
