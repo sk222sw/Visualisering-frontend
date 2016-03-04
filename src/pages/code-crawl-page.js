@@ -6,7 +6,7 @@ const CodeCrawlPage = ({text}) => <CodeCrawl text={text} />;
 
 const mapStateToProps = appState => {
   return {
-    text: appState.codeCrawl.text
+    text: appState.components.codeCrawl.text
   };
 };
 
