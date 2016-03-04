@@ -6,7 +6,7 @@ const MatrixPage = ({data}) => <Matrix data={data} />;
 
 const mapStateToProps = appState => {
   return {
-    data: appState.matrix.data
+    data: appState.components.matrix.data
   };
 };
 
