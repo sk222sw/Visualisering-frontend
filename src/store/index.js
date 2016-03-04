@@ -9,10 +9,10 @@ import initialState from "./initial-state";
 const reduxRouterMiddleware = syncHistory(hashHistory);
 
 const logger = store => next => action => {
-  // console.log("dispatching", action.type, action);
+  console.log("dispatching", action.type, action);
   const result = next(action);
 
-  // console.log("next state", store.getState());
+  console.log("next state", store.getState());
   return result;
 };
 

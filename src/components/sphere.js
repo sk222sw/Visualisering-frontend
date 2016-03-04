@@ -23,6 +23,7 @@
 import React, {Component} from "react";
 import THREE from "three";
 import Utils from "../utils/three-utils";
+import forEach from "lodash/forEach";
 
 export default class Sphere extends Component {
   constructor() {
@@ -84,7 +85,7 @@ export default class Sphere extends Component {
       this.scene.remove(this.commits);
       this.commits = new THREE.Group();
 
-      this.props.data.forEach(commit => {
+      forEach(this.props.data, commit => {
         this.visualizeCommit(commit, this.time);
       });
 
@@ -127,11 +128,9 @@ export default class Sphere extends Component {
   }
 }
 
-Sphere.propTypes = {
-  data: React.PropTypes.arrayOf(
+Sphere.propTypes = React.PropTypes.arrayOf(
     React.PropTypes.shape({
       lat: React.PropTypes.number,
       lng: React.PropTypes.number,
       time: React.PropTypes.number
-    })).isRequired
-};
+    })).isRequired;
