@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "pretest": "npm run eslint",
     "test": "mocha ./spec/**/*-spec.js --compilers js:babel-core/register",
     "test:watch": "mocha ./spec/**/*-spec.js --compilers js:babel-core/register -w",
     "eslint": "eslint ./src ./spec",
