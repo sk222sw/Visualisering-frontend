@@ -45,13 +45,17 @@ export default class Earth extends Component {
     this.camera.position.z = 1.3;
     this.scene.rotation.x = 0.5;
 
+    setTimeout(this.handleResize.bind(this));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.time = nextProps.data[0].time;
     const animationLoop = () => {
       this.renderAnimation();
       requestAnimationFrame(animationLoop);
     };
 
     animationLoop();
-    setTimeout(this.handleResize.bind(this));
   }
 
   componentWillUnmount() {
@@ -68,9 +72,12 @@ export default class Earth extends Component {
     this.renderer.setSize(width, height);
   }
 
+  setTime(time) {
+    this.time = time;
+  }
+
   renderAnimation() {
     this.scene.rotation.y += 0.009;
-    // this.scene.rotation.y = -1.5;
 
     if (this.time % 100 === 0) {
       this.scene.remove(this.commits);

@@ -22,7 +22,6 @@ ReactDom.render(
 websocket.onmessage = event => {
   try { // Using a try-catch because JSON.parse explodes on invalid JSON.
     const action = JSON.parse(event.data);
-    console.log(action);
 
     action.type === C.WS_CONNECTED ?
       store.dispatch(actions.getDataFromBackend()) :
