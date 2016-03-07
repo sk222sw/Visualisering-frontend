@@ -41,8 +41,15 @@ const initialDropValue = 1;
 const chanceOfDropReset = 0.98;
 
 export default class GitHubSourceCode extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.loopInfo = this.loopInfo.bind(this);
+  }
+
   componentDidMount() {
     this.initMatrix();
+    this.loopInfo();
   }
 
   getData() {
@@ -50,7 +57,7 @@ export default class GitHubSourceCode extends React.Component {
       return (
         <div key={data.id} className="matrix-visualization">
           <div className="matrix-code-section">
-            <canvas id="matrix-canvas"></canvas>
+            <canvas id="matrix-canvas" onClick={this.loopInfo}></canvas>
           </div>
           <div className="matrix-info-section">
             <div className="project-info-section">
@@ -81,7 +88,7 @@ export default class GitHubSourceCode extends React.Component {
                 </h4>
               </div>
             </div>
-            <div className="contributors-section">
+            <div className="contributors-section hidden">
               <div className="contributors-text info-section-text">
                 {contributorTitle}
               </div>
@@ -101,13 +108,58 @@ export default class GitHubSourceCode extends React.Component {
     return dataComponents;
   }
 
+  loopInfo() {
+    const projectInfo = document.querySelector(".project-info-section");
+    const fileName = document.querySelector(".filename-section");
+    const gitHubUser = document.querySelector(".github-user-section");
+    let infoElements = [];
+
+    infoElements = [projectInfo, fileName, gitHubUser];
+
+    // add css class "hidden" to each element if
+    // it isn't hidden.
+    for (let i = 0; i < infoElements.length; i++) {
+      if (!hasClass(infoElements[i], "hidden")) {
+        infoElements[i].classList.add("hidden");
+      }
+    }
+
+    let currentlyVisibleElementIndex = 0;
+
+    setInterval(() => {
+      for (let i = 0; i < infoElements.length; i++) {
+        if (i === currentlyVisibleElementIndex) {
+          infoElements[i].classList.remove("hidden");
+        } else {
+          infoElements[i].classList.add("hidden");
+        }
+      }
+      if (currentlyVisibleElementIndex >= infoElements.length - 1) {
+        currentlyVisibleElementIndex = 0;
+      } else {
+        currentlyVisibleElementIndex++;
+      }
+    }, 1000);
+
+    /**
+     * Borrowed from http://jsperf.com/pure-js-hasclass-vs-jquery-hasclass/2
+     * @param {string} el - html node
+     * @param {string} selector - css class
+     * @return {bool} true or false
+     */
+    function hasClass(el, selector) {
+      const className = " " + selector + " ";
+      return (" " + el.className + " ").replace(/[\n\t]/g, " ").indexOf(className) > -1;
+    }
+  }
+
   initMatrix() {
     const c = document.querySelector("#matrix-canvas");
     const ctx = c.getContext("2d");
     c.width = window.innerWidth;
     c.height = window.innerHeight;
     ctx.font = contextFont;
-
+    console.log("cool", this.props.data);
     const columns = c.width / fontSize;
     const characterSet = this.props.data[0].sourceCode.split("");
     const drops = [];
