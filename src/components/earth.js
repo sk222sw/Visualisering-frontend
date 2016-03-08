@@ -49,10 +49,13 @@ export default class Earth extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.time = nextProps.data[0].time;
+    this.time = nextProps.data[nextProps.data.length - 1].time;
+
     const animationLoop = () => {
       this.renderAnimation();
-      requestAnimationFrame(animationLoop);
+      setTimeout(() => {
+        requestAnimationFrame(animationLoop);
+      }, 1500 / 30);
     };
 
     animationLoop();
@@ -79,7 +82,7 @@ export default class Earth extends Component {
   renderAnimation() {
     this.scene.rotation.y += 0.009;
 
-    if (this.time % 100 === 0) {
+    if (this.time % 1000 === 0) {
       this.scene.remove(this.commits);
       this.commits = new THREE.Group();
 
@@ -88,8 +91,16 @@ export default class Earth extends Component {
       });
       this.scene.add(this.commits);
     }
+
+    if (this.props.data && this.props.data[0].time + 1000 < this.time) {
+      this.time = this.props.data[this.props.data.length - 1].time;
+      forEach(this.props.data, commit => {
+        commit.distanceFromEarth = undefined;
+      });
+    }
+
     this.renderer.render(this.scene, this.camera);
-    this.time += 3;
+    this.time += 1000000;
   }
 
   visualizeCommit(commit, time) {
@@ -97,21 +108,24 @@ export default class Earth extends Component {
       return;
     }
 
-    const distanceFromEarth = 1 + (commit.time - time) / 10000;
+    if (commit.distanceFromEarth === undefined) {
+      commit.distanceFromEarth = 0.98;
+    }
+    commit.distanceFromEarth -= 0.01;
 
-    if (distanceFromEarth < 0) {
+    if (commit.distanceFromEarth < 0) {
       return;
     }
 
     const geometry = new THREE.Geometry();
     const vertex = Utils.calculateVector(commit.lng, commit.lat);
-    vertex.multiplyScalar(distanceFromEarth);
+    vertex.multiplyScalar(commit.distanceFromEarth);
 
     geometry.vertices.push(vertex);
 
     const vertex2 = vertex.clone();
 
-    vertex2.multiplyScalar(distanceFromEarth);
+    vertex2.multiplyScalar(commit.distanceFromEarth);
     geometry.vertices.push(vertex2);
 
     const line = new THREE.Line(
