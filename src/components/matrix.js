@@ -1,10 +1,9 @@
 import React from "react";
 
 // static texts
-const projectText = "visualizing source code from github repo:";
+const projectText = "visualizing source code from github repo: ";
 const fileNameText = "filename: ";
 const repoOwner = "owner: ";
-const contributorTitle = "contributors: ";
 
 // matrix settings
 // font size will affect the size of the font and
@@ -56,50 +55,13 @@ export default class GitHubSourceCode extends React.Component {
     const dataComponents = this.props.data.map(data => {
       return (
         <div key={data.id} className="matrix-visualization">
-          <div className="matrix-code-section">
-            <canvas id="matrix-canvas" onClick={this.loopInfo}></canvas>
-          </div>
           <div className="matrix-info-section">
             <div className="project-info-section">
-              <div className="project-info info-section-text">
-                {projectText}
-              </div>
-              <div className="project-info project-name info-section-name">
-                <h2>{data.project}</h2>
-              </div>
             </div>
-            <div className="filename-section">
-              <div className="filename-text info-section-text">
-                {fileNameText}
-              </div>
-              <div className="filename-name info-section-name">
-                <h4>
-                  {data.fileName}
-                </h4>
-              </div>
-            </div>
-            <div className="github-user-section">
-              <div className="github-user-text info-section-text">
-                {repoOwner}
-              </div>
-              <div className="github-user info-section-name">
-                <h4>
-                  {data.githubUser}
-                </h4>
-              </div>
-            </div>
-            <div className="contributors-section hidden">
-              <div className="contributors-text info-section-text">
-                {contributorTitle}
-              </div>
-              <div className="contributor-list">
-                <ul>
-                  {data.contributors.map(contributor => {
-                    return <li key={contributor.id}>{contributor}</li>;
-                  })}
-                </ul>
-              </div>
-            </div>
+            <div id="low"></div>
+          </div>
+          <div className="matrix-code-section">
+            <canvas id="matrix-canvas"></canvas>
           </div>
         </div>
       );
@@ -109,48 +71,66 @@ export default class GitHubSourceCode extends React.Component {
   }
 
   loopInfo() {
-    const projectInfo = document.querySelector(".project-info-section");
-    const fileName = document.querySelector(".filename-section");
-    const gitHubUser = document.querySelector(".github-user-section");
-    let infoElements = [];
-
-    infoElements = [projectInfo, fileName, gitHubUser];
-
-    // add css class "hidden" to each element if
-    // it isn't hidden.
-    for (let i = 0; i < infoElements.length; i++) {
-      if (!hasClass(infoElements[i], "hidden")) {
-        infoElements[i].classList.add("hidden");
-      }
-    }
-
-    let currentlyVisibleElementIndex = 0;
-
-    setInterval(() => {
-      for (let i = 0; i < infoElements.length; i++) {
-        if (i === currentlyVisibleElementIndex) {
-          infoElements[i].classList.remove("hidden");
-        } else {
-          infoElements[i].classList.add("hidden");
-        }
-      }
-      if (currentlyVisibleElementIndex >= infoElements.length - 1) {
-        currentlyVisibleElementIndex = 0;
-      } else {
-        currentlyVisibleElementIndex++;
-      }
-    }, 1000);
+    const infoSection = document.querySelector(".project-info-section");
+    const low = document.getElementById("low");
+    low.innerHTML = "_";
+    const texts = [];
+    const data = this.props.data[0];
+    texts.push(projectText + data.project);
+    texts.push(fileNameText + data.fileName);
+    texts.push(repoOwner + data.githubUser);
+    let ms = 1;
+    let show = false;
+    let textCounter = 0;
+    let waitCounter = 0;
+    let index = 0;
+    let currentText = " ";
+    let interval;
 
     /**
-     * Borrowed from http://jsperf.com/pure-js-hasclass-vs-jquery-hasclass/2
-     * @param {string} el - html node
-     * @param {string} selector - css class
-     * @return {bool} true or false
+     * simulates writing in a console
      */
-    function hasClass(el, selector) {
-      const className = " " + selector + " ";
-      return (" " + el.className + " ").replace(/[\n\t]/g, " ").indexOf(className) > -1;
+    function write() {
+      currentText = texts[textCounter];
+      clearInterval(interval);
+      if (index <= currentText.length) {
+        infoSection.innerHTML += currentText.charAt(index);
+        index++;
+        ms = 100;
+      } else if (index > currentText.length) {
+        if (waitCounter > 5) {
+          waitCounter = 0;
+          clearInterval(interval);
+          if (textCounter === texts.length - 1) {
+            textCounter = 0;
+          } else {
+            textCounter++;
+          }
+          infoSection.innerHTML = "";
+          index = 0;
+        } else {
+          ms = 500;
+          blinkingLowDash();
+          waitCounter++;
+        }
+      }
+      interval = setInterval(write, ms);
     }
+
+    /**
+     * sets the value for the low dash blink effect
+     */
+    function blinkingLowDash() {
+      if (show) {
+        low.innerHTML = "_";
+        show = false;
+      } else {
+        low.innerHTML = "";
+        show = true;
+      }
+    }
+
+    interval = setInterval(write, ms);
   }
 
   initMatrix() {
@@ -159,7 +139,6 @@ export default class GitHubSourceCode extends React.Component {
     c.width = window.innerWidth;
     c.height = window.innerHeight;
     ctx.font = contextFont;
-    console.log("cool", this.props.data);
     const columns = c.width / fontSize;
     const characterSet = this.props.data[0].sourceCode.split("");
     const drops = [];

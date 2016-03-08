@@ -16,15 +16,16 @@
         position: absolute;
         /*border-radius: 100px;*/
         margin: auto;
-        top: auto; left: 0; right: 0; bottom: 0;
+        //top: 0; left: 0; right: 0; bottom: auto;
         /*width: 65%;*/
-        background: rgba(0,0,0,0.6);
-        font-size: 17px;
+        background: rgba(0,0,0,1);
+        font-size: 12px;
         text-align: center;
-        font-family: 'Catamaran', sans-serif;
+        font-family: 'courier', sans-serif;
+        color: red;
     }
-
     .matrix-info-section div {
+        display: inline;
     }
 
     /* for all static texts in the info section */
@@ -46,7 +47,7 @@
     .project-info {}
     .project-text {}
     .project-name {
-        font-size: 40px;
+        //font-size: 40px;
     }
 
     .filename-section div, h4{
