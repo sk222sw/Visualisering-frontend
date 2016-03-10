@@ -57,6 +57,11 @@ export default class Earth extends Component {
     this.startAnimation(nextProps);
   }
 
+  componentWillUnmount() {
+    this.endLoop = true;
+    window.removeEventListener("resize", this.handleResize);
+  }
+
   startAnimation(nextProps) {
     const time = nextProps.data[nextProps.data.length - 1].time;
     this.setState({time});
@@ -72,11 +77,6 @@ export default class Earth extends Component {
     };
 
     animationLoop();
-  }
-
-  componentWillUnmount() {
-    this.endLoop = true;
-    window.removeEventListener("resize", this.handleResize);
   }
 
   handleResize(e) {

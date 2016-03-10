@@ -2,11 +2,11 @@ import React from "react";
 import {connect} from "react-redux";
 import CodeCrawl from "../components/code-crawl";
 
-const CodeCrawlPage = ({text}) => <CodeCrawl text={text} />;
+const CodeCrawlPage = ({data}) => <CodeCrawl data={data} />;
 
 const mapStateToProps = appState => {
   return {
-    text: appState.components.codeCrawl.text
+    data: appState.components.commits
   };
 };
 
