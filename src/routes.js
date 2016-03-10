@@ -5,7 +5,6 @@ import Wrapper from "./components/wrapper";
 import CodeCrawlPage from "./pages/code-crawl-page";
 import EarthPage from "./pages/earth-page";
 import SettingsPage from "./pages/settings-page";
-import SpherePage from "./pages/sphere-page";
 import MatrixPage from "./pages/matrix-page";
 
 export default (
@@ -15,6 +14,5 @@ export default (
     <Route path="earth" component={EarthPage} />
     <Route path="matrix" component={MatrixPage} />
     <Route path="settings" component={SettingsPage} />
-    <Route path="sphere" component={SpherePage} />
   </Route>
 );
