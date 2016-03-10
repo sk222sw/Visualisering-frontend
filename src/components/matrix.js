@@ -1,9 +1,11 @@
 import React from "react";
-
 // static texts
 const projectText = "visualizing source code from github repo: ";
 const fileNameText = "filename: ";
 const repoOwner = "owner: ";
+
+let initialized = false;
+let currentText = "";
 
 // matrix settings
 // font size will affect the size of the font and
@@ -26,7 +28,7 @@ const contextOpacity = 0.05;
 const contextBackground = "rgba(0, 0, 0, " + contextOpacity + ")";
 
 // speed in milliseconds - lower is faster
-const speed = 30;
+const speed = 100;
 
 // this adds an initial vertical position to each drop point.
 // The value is multiplied by fontSize when rendered in makeItRain().
@@ -42,19 +44,53 @@ const chanceOfDropReset = 0.98;
 export default class GitHubSourceCode extends React.Component {
   constructor(props) {
     super(props);
-
+    this.getNextData = this.getNextData.bind(this);
+    this.dataCounter = 0;
     this.loopInfo = this.loopInfo.bind(this);
+    this.resetMatrix = this.resetMatrix.bind(this);
+    this.characterSet = "Hhejehejhe".split("");
   }
 
   componentDidMount() {
+    this.c = document.getElementById("matrix-canvas");
+    this.ctx = this.c.getContext("2d");
+    if (!initialized) {
+      this.initMatrix();
+    }
+    window.addEventListener("click", e => {
+      console.log(this.props.data);
+      console.log("this.getdata::::", this.dataCounter, this.getNextData());
+      this.code = this.props.data[this.dataCounter].code;
+      this.ctx.restore();
+      this.resetMatrix();
+      if (this.dataCounter >= this.props.data.length - 1) {
+        this.dataCounter = 0;
+      } else {
+        this.dataCounter++;
+      }
+    });
+  }
+
+  getNextData() {
+    return this.props.data[this.dataCounter];
+  }
+
+  resetMatrix() {
+    // removes all intervals, but this is so ugly and should be
+    // handled differently after a big refactor.
+    for (let i = 1; i < 9999; i++) {
+      window.clearInterval(i);
+    }
+    this.ctx.clearRect(0, 0, this.c.width, this.c.height);
+    this.ctx.restore();
+    this.characterSet = this.props.data[this.dataCounter].code;
     this.initMatrix();
     this.loopInfo();
   }
 
   getData() {
-    const dataComponents = this.props.data.map(data => {
-      return (
-        <div key={data.id} className="matrix-visualization">
+    return (
+        <div className="matrix-visualization">
           <div className="matrix-info-section">
             <div className="project-info-section">
             </div>
@@ -65,26 +101,25 @@ export default class GitHubSourceCode extends React.Component {
           </div>
         </div>
       );
-    });
-
-    return dataComponents;
   }
 
   loopInfo() {
     const infoSection = document.querySelector(".project-info-section");
+    infoSection.innerHTML = "";
+    console.log(infoSection.innerHTML);
     const low = document.getElementById("low");
     low.innerHTML = "_";
     const texts = [];
-    const data = this.props.data[0];
-    texts.push(projectText + data.project);
-    texts.push(fileNameText + data.fileName);
-    texts.push(repoOwner + data.githubUser);
+    const data = this.props.data[this.dataCounter];
+    texts.push(projectText + data.repo);
+    texts.push(fileNameText + data.filename);
+    texts.push(repoOwner + data.owner);
     let ms = 1;
     let show = false;
     let textCounter = 0;
     let waitCounter = 0;
     let index = 0;
-    let currentText = " ";
+    currentText = " ";
     let interval;
 
     /**
@@ -134,15 +169,20 @@ export default class GitHubSourceCode extends React.Component {
   }
 
   initMatrix() {
-    const c = document.querySelector("#matrix-canvas");
-    const ctx = c.getContext("2d");
+    if (!initialized) {
+      initialized = true;
+    }
+    // const c = document.getElementById("matrix-canvas");
+    const c = this.c;
+    const ctx = this.ctx;
     c.width = window.innerWidth;
     c.height = window.innerHeight;
     ctx.font = contextFont;
     const columns = c.width / fontSize;
-    const characterSet = this.props.data[0].code.split("");
+    let characterSet = "";
+    characterSet = new Buffer(this.characterSet, "base64").toString("ascii");
+    // const characterSet = this.props.data[0].code.split("");
     const drops = [];
-
     for (let i = 0; i < columns; i++) {
       drops[i] = initialDropValue;
     }

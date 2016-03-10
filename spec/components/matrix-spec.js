@@ -16,7 +16,6 @@ const fakeData = [{id: 1,
   committer: "",
   filename: "",
   code: ""
-    
 }];
 
 const renderer = TestUtils.createRenderer();
