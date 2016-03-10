@@ -10,8 +10,9 @@ export default class CodeCrawl extends Component {
   }
   render() {
     return (
-      <div onClick={this.clickHandler.bind(this)}>
-        <h1>{this.props.text}</h1>
+      <div className="crawl-component">
+        <p id="start">A short time ago in a browser very, very close&hellip;</p>
+        <h1>MAY THE SOURCE<sub>be with you</sub></h1>
       </div>
     );
   }
