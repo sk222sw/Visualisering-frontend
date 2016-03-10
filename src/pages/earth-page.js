@@ -15,7 +15,7 @@ const EarthPage = ({data}) => (<Earth data={data} />);
 // This is the magic provided by react-redux, you can pass props to the component like Scotty beams up Kirk!
 const mapStateToProps = appState => {
   return {
-    data: appState.components.commits
+    data: appState.components.positions
   };
 };
 
