@@ -1,5 +1,15 @@
-#earth-container {
+#earth-wrapper {
   height: 100%;
+  font-family: 'Catamaran', sans-serif;
+  #earth-container {
+    height: 100%;
+  }
+  #time {
+    position: absolute;
+    top: 10px;
+    left: 30px;
+    color: white;
+  }
 }
 #sphere-container {
   height: 100%;
