@@ -47,16 +47,27 @@ export default class Earth extends Component {
     this.scene.rotation.x = 0.5;
 
     setTimeout(this.handleResize.bind(this));
+
+    if (this.props.data) {
+      this.startAnimation(this.props);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    this.startAnimation(nextProps);
+  }
+
+  startAnimation(nextProps) {
     const time = nextProps.data[nextProps.data.length - 1].time;
     this.setState({time});
 
     const animationLoop = () => {
+      if (this.endLoop) {
+        return;
+      }
       this.renderAnimation();
       setTimeout(() => {
-        requestAnimationFrame(animationLoop);
+        this.id = requestAnimationFrame(animationLoop);
       }, 1500 / 30);
     };
 
@@ -64,6 +75,7 @@ export default class Earth extends Component {
   }
 
   componentWillUnmount() {
+    this.endLoop = true;
     window.removeEventListener("resize", this.handleResize);
   }
 
