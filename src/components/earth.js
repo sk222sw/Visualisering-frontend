@@ -143,7 +143,15 @@ export default class Earth extends Component {
   }
 
   render() {
-    return (<div id="earth-container" />);
+    return (
+      <div id="earth-wrapper">
+        <div id="earth-container" />
+        <div id="time">
+          <p>Commits @</p>
+          {new Date(this.state.time).toISOString().substring(0, 10)}
+        </div>
+      </div>
+    );
   }
 }
 
