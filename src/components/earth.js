@@ -27,6 +27,7 @@ import forEach from "lodash/forEach";
 export default class Earth extends Component {
   constructor() {
     super();
+    this.state = {time: null};
     Utils.init(this);
   }
 
@@ -49,7 +50,8 @@ export default class Earth extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.time = nextProps.data[nextProps.data.length - 1].time;
+    const time = nextProps.data[nextProps.data.length - 1].time;
+    this.setState({time});
 
     const animationLoop = () => {
       this.renderAnimation();
@@ -76,31 +78,35 @@ export default class Earth extends Component {
   }
 
   setTime(time) {
-    this.time = time;
+    this.setState({time: time});
   }
 
   renderAnimation() {
+    if (this.state.time === null) {
+      return;
+    }
+
     this.scene.rotation.y += 0.009;
 
-    if (this.time % 1000 === 0) {
+    if (this.state.time % 1000 === 0) {
       this.scene.remove(this.commits);
       this.commits = new THREE.Group();
 
       forEach(this.props.data, commit => {
-        this.visualizeCommit(commit, this.time);
+        this.visualizeCommit(commit, this.state.time);
       });
       this.scene.add(this.commits);
     }
 
-    if (this.props.data && this.props.data[0].time + 1000 < this.time) {
-      this.time = this.props.data[this.props.data.length - 1].time;
+    if (this.props.data && this.props.data[0].time + 1000 < this.state.time) {
+      this.setState({time: this.props.data[this.props.data.length - 1].time});
       forEach(this.props.data, commit => {
         commit.distanceFromEarth = undefined;
       });
     }
 
     this.renderer.render(this.scene, this.camera);
-    this.time += 1000000;
+    this.setState({time: this.state.time + 1000000});
   }
 
   visualizeCommit(commit, time) {
