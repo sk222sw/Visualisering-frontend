@@ -13,7 +13,7 @@ const fontColor = "green";
 const fontFamily = "courier";
 const contextFont = fontSize + "px " + fontFamily;
 
-// eslint cant find window. change these in initMatrix()
+// eslint cant find window. change these in initMatrix() in matrix.js
 // const matrixWidth = window.innerWidth;
 // const matrixHeight = window.innerHeight;
 

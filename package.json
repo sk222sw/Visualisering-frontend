@@ -9,6 +9,7 @@
     "eslint": "eslint ./src ./spec",
     "eslint:fix": "eslint ./src ./spec --fix",
     "start": "webpack-dev-server --hot --inline --progress --colors -d",
+    "c9-start": "webpack-dev-server --host $IP --port $PORT --hot --inline --progress --colors -d",
     "build": "webpack"
   },
   "repository": {
