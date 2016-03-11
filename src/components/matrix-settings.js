@@ -35,4 +35,7 @@ settings.initialDropValue = 1;
 // used as: if (Math.random() > chanceOfDropReset)
 settings.chanceOfDropReset = 0.98;
 
+// when the next data should be loaded
+settings.updateFrequency = 1000 * 30; // 1 second * x seconds
+
 module.exports = settings;

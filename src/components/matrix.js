@@ -7,46 +7,46 @@ let currentText = "";
 export default class GitHubSourceCode extends React.Component {
   constructor(props) {
     super(props);
-    this.getNextData = this.getNextData.bind(this);
     this.dataCounter = 0;
     this.loopInfo = this.loopInfo.bind(this);
     this.resetMatrix = this.resetMatrix.bind(this);
-    this.characterSet = "Hhejehejhe".split("");
+    this.initMatrix = this.initMatrix.bind(this);
+    this.getNextData = this.getNextData.bind(this);
+    this.characterSet = "temporary fake code letters hello world lorem ipsum";
   }
 
   componentDidMount() {
     this.c = document.getElementById("matrix-canvas");
     this.ctx = this.c.getContext("2d");
+    this.infoSection = document.querySelector(".project-info-section");
+
+    // run initMatrix the first time to get things going
     if (!initialized) {
       this.initMatrix();
     }
-    window.addEventListener("click", e => {
-      console.log(this.props.data);
-      console.log("this.getdata::::", this.dataCounter, this.getNextData());
+
+    setInterval(() => {
       this.code = this.props.data[this.dataCounter].code;
       this.ctx.restore();
       this.resetMatrix();
-      if (this.dataCounter >= this.props.data.length - 1) {
-        this.dataCounter = 0;
-      } else {
-        this.dataCounter++;
-      }
-    });
+    }, settings.updateFrequency);
   }
 
   getNextData() {
+    if (this.dataCounter >= this.props.data.length - 1) {
+      this.dataCounter = 0;
+    } else {
+      this.dataCounter++;
+    }
     return this.props.data[this.dataCounter];
   }
 
   resetMatrix() {
-    // removes all intervals, but this is so ugly and should be
-    // handled differently after a big refactor.
-    for (let i = 1; i < 9999; i++) {
-      window.clearInterval(i);
-    }
+    clearInterval(this.interval);
+    clearInterval(this.infoInterval);
     this.ctx.clearRect(0, 0, this.c.width, this.c.height);
     this.ctx.restore();
-    this.characterSet = this.props.data[this.dataCounter].code;
+    this.characterSet = this.getNextData().code;
     this.initMatrix();
     this.loopInfo();
   }
@@ -69,7 +69,6 @@ export default class GitHubSourceCode extends React.Component {
   loopInfo() {
     const infoSection = document.querySelector(".project-info-section");
     infoSection.innerHTML = "";
-    console.log(infoSection.innerHTML);
     const low = document.getElementById("low");
     low.innerHTML = "_";
     const texts = [];
@@ -77,12 +76,12 @@ export default class GitHubSourceCode extends React.Component {
     texts.push(settings.projectText + data.repo);
     texts.push(settings.fileNameText + data.filename);
     texts.push(settings.repoOwner + data.owner);
-    let ms = 1;
+    let ms = 100;
     let show = false;
     let textCounter = 0;
     let waitCounter = 0;
     let index = 0;
-    currentText = " ";
+    currentText = "";
     let interval;
 
     /**
@@ -107,12 +106,14 @@ export default class GitHubSourceCode extends React.Component {
           infoSection.innerHTML = "";
           index = 0;
         } else {
+          clearInterval(this.infoInterval);
           ms = 500;
           blinkingLowDash();
           waitCounter++;
         }
       }
-      interval = setInterval(write, ms);
+      clearInterval(this.infoInterval);
+      this.infoInterval = setInterval(write, ms);
     }
 
     /**
@@ -127,15 +128,14 @@ export default class GitHubSourceCode extends React.Component {
         show = true;
       }
     }
-
-    interval = setInterval(write, ms);
+    clearInterval(this.infoInterval);
+    this.infoInterval = setInterval(write, ms);
   }
 
   initMatrix() {
     if (!initialized) {
       initialized = true;
     }
-    // const c = document.getElementById("matrix-canvas");
     const c = this.c;
     const ctx = this.ctx;
     c.width = window.innerWidth;
@@ -144,7 +144,6 @@ export default class GitHubSourceCode extends React.Component {
     const columns = c.width / settings.fontSize;
     let characterSet = "";
     characterSet = new Buffer(this.characterSet, "base64").toString("ascii");
-    // const characterSet = this.props.data[0].code.split("");
     const drops = [];
     for (let i = 0; i < columns; i++) {
       drops[i] = settings.initialDropValue;
@@ -174,7 +173,7 @@ export default class GitHubSourceCode extends React.Component {
       }
     }
 
-    setInterval(makeItRain, settings.speed);
+    this.interval = setInterval(makeItRain, settings.speed);
   }
 
   render() {
