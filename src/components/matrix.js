@@ -1,45 +1,8 @@
 import React from "react";
-// static texts
-const projectText = "visualizing source code from github repo: ";
-const fileNameText = "filename: ";
-const repoOwner = "owner: ";
+import settings from "./matrix-settings";
 
 let initialized = false;
 let currentText = "";
-
-// matrix settings
-// font size will affect the size of the font and
-// the number of drop columns
-const fontSize = 12;
-const fontColor = "green";
-const fontFamily = "courier";
-const contextFont = fontSize + "px " + fontFamily;
-
-// eslint cant find window. change these in initMatrix() in matrix.js
-// const matrixWidth = window.innerWidth;
-// const matrixHeight = window.innerHeight;
-
-// Lower opacity means the characters will leave a longer
-// tail and the background color will be lighter
-const contextOpacity = 0.05;
-
-// contextBackground is used to reset the background before
-// the next set of characters is rendered.
-const contextBackground = "rgba(0, 0, 0, " + contextOpacity + ")";
-
-// speed in milliseconds - lower is faster
-const speed = 100;
-
-// this adds an initial vertical position to each drop point.
-// The value is multiplied by fontSize when rendered in makeItRain().
-// This means that  1 = Initially all drops will start from the top
-//                      at the same time
-//                  someValueGreaterThan c.height = all drops start randomly
-const initialDropValue = 1;
-
-// used to determine whether a character drop should restart at the top.
-// used as: if (Math.random() > chanceOfDropReset)
-const chanceOfDropReset = 0.98;
 
 export default class GitHubSourceCode extends React.Component {
   constructor(props) {
@@ -111,9 +74,9 @@ export default class GitHubSourceCode extends React.Component {
     low.innerHTML = "_";
     const texts = [];
     const data = this.props.data[this.dataCounter];
-    texts.push(projectText + data.repo);
-    texts.push(fileNameText + data.filename);
-    texts.push(repoOwner + data.owner);
+    texts.push(settings.projectText + data.repo);
+    texts.push(settings.fileNameText + data.filename);
+    texts.push(settings.repoOwner + data.owner);
     let ms = 1;
     let show = false;
     let textCounter = 0;
@@ -177,14 +140,14 @@ export default class GitHubSourceCode extends React.Component {
     const ctx = this.ctx;
     c.width = window.innerWidth;
     c.height = window.innerHeight;
-    ctx.font = contextFont;
-    const columns = c.width / fontSize;
+    ctx.font = settings.contextFont;
+    const columns = c.width / settings.fontSize;
     let characterSet = "";
     characterSet = new Buffer(this.characterSet, "base64").toString("ascii");
     // const characterSet = this.props.data[0].code.split("");
     const drops = [];
     for (let i = 0; i < columns; i++) {
-      drops[i] = initialDropValue;
+      drops[i] = settings.initialDropValue;
     }
 
     /**
@@ -193,17 +156,17 @@ export default class GitHubSourceCode extends React.Component {
     function makeItRain() {
       // reset canvas before next character rendering
       // then set it back to the font color
-      ctx.fillStyle = contextBackground;
+      ctx.fillStyle = settings.contextBackground;
       ctx.fillRect(0, 0, c.width, c.height);
-      ctx.fillStyle = fontColor;
+      ctx.fillStyle = settings.fontColor;
 
       for (let i = 0; i < drops.length; i++) {
         const char = characterSet[Math.floor(Math.random() * characterSet.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        ctx.fillText(char, i * settings.fontSize, drops[i] * settings.fontSize);
 
         // if a character travels past the window height it might reset and
         // start from the top. this is what makes the drops appear randomly
-        if (drops[i] * fontSize > c.height && Math.random() > chanceOfDropReset) {
+        if (drops[i] * settings.fontSize > c.height && Math.random() > settings.chanceOfDropReset) {
           drops[i] = 0;
         }
 
@@ -211,7 +174,7 @@ export default class GitHubSourceCode extends React.Component {
       }
     }
 
-    setInterval(makeItRain, speed);
+    setInterval(makeItRain, settings.speed);
   }
 
   render() {
