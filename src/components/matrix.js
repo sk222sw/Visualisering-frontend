@@ -140,7 +140,7 @@ export default class GitHubSourceCode extends React.Component {
     c.height = window.innerHeight;
     ctx.font = contextFont;
     const columns = c.width / fontSize;
-    const characterSet = this.props.data[0].sourceCode.split("");
+    const characterSet = this.props.data[0].code.split("");
     const drops = [];
 
     for (let i = 0; i < columns; i++) {

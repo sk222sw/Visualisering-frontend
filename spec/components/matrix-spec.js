@@ -8,7 +8,16 @@ expect.extend(expectJSX);
 
 import Matrix from "../../src/components/matrix";
 
-const fakeData = [{}];
+const fakeData = [{id: 1,
+  repo: "",
+  owner: "",
+  timestamp: "",
+  message: "",
+  committer: "",
+  filename: "",
+  code: ""
+    
+}];
 
 const renderer = TestUtils.createRenderer();
 renderer.render(<Matrix data={fakeData} />);
@@ -17,4 +26,3 @@ const actual = renderer.getRenderOutput();
 describe("Matrix", () => {
 
 });
-
